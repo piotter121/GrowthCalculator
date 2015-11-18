@@ -53,7 +53,9 @@ public class MainFrame extends JFrame {
 
         createTable();
         JScrollPane scrollPane = new JScrollPane(resultsTable);
-        scrollPane.setPreferredSize(new Dimension(300,100));
+        scrollPane.setMinimumSize(new Dimension(300,50));
+        scrollPane.setPreferredSize(new Dimension(300,183));
+        scrollPane.setMaximumSize(new Dimension(300,200));
 
         configureButtons();
 
@@ -79,8 +81,9 @@ public class MainFrame extends JFrame {
         // TO DO dodać action listenery
 
 
-        buttonsPanel.setPreferredSize(new Dimension(300,200));
-        buttonsPanel.setBackground(Color.yellow);
+        buttonsPanel.setMinimumSize(new Dimension(300,50));
+        buttonsPanel.setPreferredSize(new Dimension(300,183));
+        buttonsPanel.setMaximumSize(new Dimension(300,200));
         buttonsPanel.add(loadButton);
         buttonsPanel.add(saveButton);
         buttonsPanel.add(optionsButton);
