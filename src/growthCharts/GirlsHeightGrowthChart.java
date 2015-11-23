@@ -12,7 +12,7 @@ import java.util.List;
 public class GirlsHeightGrowthChart implements GrowthChart {
     private static final LinkedHashMap<Integer,ArrayList<Double>> data = makeChart();
 
-    private static LinkedHashMap makeChart() {
+    private static LinkedHashMap<Integer, ArrayList<Double>> makeChart() {
         LinkedHashMap<Integer, ArrayList<Double>> createdChartData = new LinkedHashMap<>(7);
         int centyl;
         ArrayList<Double> chartData;
