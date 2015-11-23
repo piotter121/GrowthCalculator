@@ -1,7 +1,5 @@
 package growthCharts;
 
-import growthCharts.GrowthChart;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;

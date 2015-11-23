@@ -1,5 +1,7 @@
 package growthCharts.factories;
 
+import growthCharts.BoysHeightGrowthChart;
+import growthCharts.BoysWeightGrowthChart;
 import growthCharts.GrowthChart;
 
 /**
@@ -9,11 +11,11 @@ import growthCharts.GrowthChart;
 public class BoysGrowthChartsFactory implements GrowthChartsFactory {
     @Override
     public GrowthChart returnWeightChart() {
-        return null;
+        return new BoysWeightGrowthChart();
     }
 
     @Override
     public GrowthChart returnHeightChart() {
-        return null;
+        return new BoysHeightGrowthChart();
     }
 }
