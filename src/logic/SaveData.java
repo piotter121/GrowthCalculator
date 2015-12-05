@@ -1,9 +1,8 @@
-package controllers;
+package logic;
 
 /**
  * GrowthCalculator
  * Created by Piotrek on 23-11-2015.
  */
-public class CalculateData {
-
+public class SaveData {
 }

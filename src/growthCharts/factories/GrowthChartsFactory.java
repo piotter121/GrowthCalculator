@@ -7,6 +7,6 @@ import growthCharts.GrowthChart;
  * Created by Piotrek on 15-11-2015.
  */
 public interface GrowthChartsFactory {
-    GrowthChart returnWeightChart();
-    GrowthChart returnHeightChart();
+    GrowthChart returnBoysGrowthChart();
+    GrowthChart returnGirlsGrowthChart();
 }

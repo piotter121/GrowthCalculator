@@ -1,17 +1,15 @@
 package gui;
 
-import controllers.*;
+import logic.*;
 import data.CalculatedData;
 import data.UserData;
 import growthCharts.BoysHeightGrowthChart;
-import org.jfree.chart.ChartFactory;
+import growthCharts.factories.HeightGrowthChartsFactory;
+import growthCharts.factories.WeightGrowthChartsFactory;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.Plot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.xy.DefaultXYDataset;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
 /**
@@ -32,7 +30,7 @@ public class MainFrame extends JFrame {
     private ShowAllData showAllDataController;
 
     private JPanel contentPane;
-    private ChartPanel chartPanel;
+    private JPanel chartPanel;
     private JPanel rightPanel;
     private JTable resultsTable;
     private JPanel buttonsPanel;
@@ -46,21 +44,26 @@ public class MainFrame extends JFrame {
         setSize(1030,700);
 
         contentPane = new JPanel();
+        contentPane.setBackground(Color.white);
+        chartPanel = new JPanel(new BorderLayout());
         rightPanel = new JPanel();
+        rightPanel.setBackground(Color.white);
         buttonsPanel = new JPanel(new FlowLayout());
+        buttonsPanel.setBackground(Color.white);
         loadButton = new JButton(LOAD_BUTTON_NAME);
         saveButton = new JButton(SAVE_BUTTON_NAME);
         optionsButton = new JButton(OPTIONS_BUTTON_NAME);
-        resultsTable = new JTable();
+        resultsTable = new JTable(new GrowthTableModel());
         JScrollPane scrollPane = new JScrollPane(resultsTable);
+        scrollPane.setBackground(Color.white);
 
-        loadDataController = new LoadData(chartPanel, resultsTable);
+        calculateDataController = new CalculateData();
+        loadDataController = new LoadData(calculateDataController);
         saveDataController = new SaveData();
         changeOptionsController = new ChangeOptions();
-        calculateDataController = new CalculateData();
         showAllDataController = new ShowAllData(chartPanel, resultsTable);
 
-        chartPanel = showAllDataController.show(new BoysHeightGrowthChart(), new UserData(), new CalculatedData());
+        showAllDataController.show(new BoysHeightGrowthChart(), new UserData(), new CalculatedData());
 
         // Ustawienie głównego kontenera
         setContentPane(contentPane);
@@ -71,7 +74,7 @@ public class MainFrame extends JFrame {
 
         scrollPane.setMinimumSize(new Dimension(300,50));
         scrollPane.setPreferredSize(new Dimension(300,183));
-        scrollPane.setMaximumSize(new Dimension(300,200));
+        scrollPane.setMaximumSize(new Dimension(300,311));
 
         configureButtons();
 
@@ -79,13 +82,11 @@ public class MainFrame extends JFrame {
         rightPanel.add(scrollPane);
         rightPanel.add(buttonsPanel);
         contentPane.add(rightPanel);
-        setVisible(true);
+        setLocationRelativeTo(null);
     }
 
     private void configureButtons() {
-        loadButton.addActionListener(e -> {
-
-        });
+        loadButton.addActionListener(e -> loadDataController.start());
 
         buttonsPanel.setMinimumSize(new Dimension(300,50));
         buttonsPanel.setPreferredSize(new Dimension(300,183));
@@ -99,5 +100,58 @@ public class MainFrame extends JFrame {
         final MainFrame frame;
         frame = new MainFrame();
         SwingUtilities.invokeLater(() -> frame.setVisible(true));
+    }
+}
+
+class GrowthTableModel extends AbstractTableModel {
+    private String[] colNames;
+    private double[][] data;
+
+    GrowthTableModel() {
+        super();
+        colNames = new String[2];
+        colNames[0] = "Wiek";
+        if (Options.getFactory() instanceof HeightGrowthChartsFactory) {
+            colNames[1] = "Wzrost";
+        } else if (Options.getFactory() instanceof WeightGrowthChartsFactory) {
+            colNames[1] = "Waga";
+        } else {
+            colNames[1] = "";
+        }
+        data = new double[18][2];
+        for (int i = 0; i < 18; i++) {
+            data[i][0] = i + 1;
+            data[i][1] = 0;
+        }
+    }
+
+    public double[][] getData() {
+        return data;
+    }
+
+    @Override
+    public String getColumnName(int col) {
+        return colNames[col];
+    }
+
+    @Override
+    public int getRowCount() {
+        return 18;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 2;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        return data[rowIndex][columnIndex];
+    }
+
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+        data[row][col] = Double.parseDouble(value.toString());
+        fireTableCellUpdated(row, col);
     }
 }

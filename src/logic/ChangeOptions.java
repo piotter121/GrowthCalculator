@@ -1,9 +1,7 @@
-package controllers;
+package logic;
 
-import growthCharts.BoysHeightGrowthChart;
 import growthCharts.GrowthChart;
-import growthCharts.factories.BoysGrowthChartsFactory;
-import growthCharts.factories.GrowthChartsFactory;
+import growthCharts.factories.HeightGrowthChartsFactory;
 import gui.OptionsFrame;
 
 /**
@@ -15,7 +13,7 @@ public class ChangeOptions{
     private GrowthChart chart;
 
     public ChangeOptions() {
-        chart = new BoysGrowthChartsFactory().returnHeightChart();
+        chart = new HeightGrowthChartsFactory().returnBoysGrowthChart();
     }
 
     public GrowthChart returnSelectedGrowthChart() {
