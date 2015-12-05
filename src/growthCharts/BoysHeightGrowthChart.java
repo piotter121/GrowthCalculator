@@ -205,6 +205,16 @@ public class BoysHeightGrowthChart implements GrowthChart {
 
     @Override
     public List<Integer> getCentylList() {
-        return Arrays.asList((Integer [])(data.keySet().toArray()));
+        return new ArrayList<>(data.keySet());
+    }
+
+    public static void main(String[] args) {
+        BoysHeightGrowthChart chart = new BoysHeightGrowthChart();
+        for (int i = 1; i <= 18; i++) {
+            List<Integer> centyls = chart.getCentylList();
+            for (Integer j : centyls) {
+                System.out.println("Wiek " + i + ": centyl " + j + ": wzrost " + chart.getValueAt(i,j));
+            }
+        }
     }
 }

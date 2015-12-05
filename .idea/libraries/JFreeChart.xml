@@ -4,7 +4,11 @@
       <root url="jar://$PROJECT_DIR$/lib/jcommon-1.0.23.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/jfreechart-1.0.19.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="http://www.jfree.org/jfreechart/api/javadoc/index.html" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/jfreechart-1.0.19-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

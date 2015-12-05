@@ -203,6 +203,6 @@ public class BoysWeightGrowthChart implements GrowthChart {
 
     @Override
     public List<Integer> getCentylList() {
-        return Arrays.asList((Integer [])(data.keySet().toArray()));
+        return new ArrayList<>(data.keySet());
     }
 }
