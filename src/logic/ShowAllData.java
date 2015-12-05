@@ -20,7 +20,6 @@ import java.awt.*;
 public class ShowAllData {
     private JPanel chartContainer;
     private JTable resultTable;
-    private JFreeChart chart;
 
     public ShowAllData(JPanel chartPanel, JTable resultTable) {
         this.chartContainer = chartPanel;
@@ -40,15 +39,18 @@ public class ShowAllData {
             XYSeries series = new XYSeries("wprowadzone dane");
             for (int age: userData.getAge()) {
                 series.add(age, userData.getData(age));
+                resultTable.setValueAt(userData.getData(age), age-1, 1);
             }
+            seriesCollection.addSeries(series);
         }
-        chart = ChartFactory.createXYLineChart("Wykres",
+        JFreeChart chart = ChartFactory.createXYLineChart("Wykres",
                 "wiek", "wartość", seriesCollection, PlotOrientation.VERTICAL, true, true,
                 false);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(700,700));
         chartContainer.removeAll();
         chartContainer.add(chartPanel, BorderLayout.CENTER);
+        chartContainer.validate();
 
         return chartPanel;
     }

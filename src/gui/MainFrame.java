@@ -57,11 +57,11 @@ public class MainFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(resultsTable);
         scrollPane.setBackground(Color.white);
 
-        calculateDataController = new CalculateData();
+        showAllDataController = new ShowAllData(chartPanel, resultsTable);
+        calculateDataController = new CalculateData(showAllDataController);
         loadDataController = new LoadData(calculateDataController);
         saveDataController = new SaveData();
         changeOptionsController = new ChangeOptions();
-        showAllDataController = new ShowAllData(chartPanel, resultsTable);
 
         showAllDataController.show(new BoysHeightGrowthChart(), new UserData(), new CalculatedData());
 
@@ -86,7 +86,10 @@ public class MainFrame extends JFrame {
     }
 
     private void configureButtons() {
-        loadButton.addActionListener(e -> loadDataController.start());
+        loadButton.addActionListener(e -> {
+            loadDataController.start();
+            revalidate();
+        });
 
         buttonsPanel.setMinimumSize(new Dimension(300,50));
         buttonsPanel.setPreferredSize(new Dimension(300,183));
@@ -97,9 +100,7 @@ public class MainFrame extends JFrame {
     }
 
     public static void main(String[] args) {
-        final MainFrame frame;
-        frame = new MainFrame();
-        SwingUtilities.invokeLater(() -> frame.setVisible(true));
+       SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
     }
 }
 

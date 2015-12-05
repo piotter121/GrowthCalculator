@@ -37,9 +37,10 @@ public class UserData{
         Double value;
         for (int i = 0; i < 18; i++) {
             if ((value = dataToSet[i][1]) > 0) {
-                data.put(i,value);
+                data.put(i+1,value);
             } // TO DO zrobić lepszą walidację danych wejściowych
         }
+        isSet = true;
     }
 
     public Set<Integer> getAge() {
