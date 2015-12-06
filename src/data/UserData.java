@@ -43,7 +43,7 @@ public class UserData{
         isSet = true;
     }
 
-    public Set<Integer> getAge() {
-        return data.keySet();
+    public Integer[] getAges() {
+        return data.keySet().toArray(new Integer[data.keySet().size()]);
     }
 }

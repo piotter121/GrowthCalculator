@@ -28,7 +28,6 @@ public class LoadData{
 
     public void loadData(double[][] data) {
         userData = new UserData(data);
-        userData.getAge().forEach(System.out::println);
         calculator.calculateData(userData);
     }
 }
