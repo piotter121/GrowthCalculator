@@ -1,6 +1,7 @@
 package logic;
 
 import growthCharts.GrowthChart;
+import growthCharts.factories.GrowthChartsFactory;
 import growthCharts.factories.HeightGrowthChartsFactory;
 import gui.OptionsFrame;
 

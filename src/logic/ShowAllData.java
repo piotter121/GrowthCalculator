@@ -48,7 +48,7 @@ public class ShowAllData {
 
     private XYSeriesCollection createSeriesCollection(GrowthChart growthChart, UserData uData, CalculatedData cData) {
         XYSeriesCollection seriesCollection = new XYSeriesCollection();
-        for (Integer centyl: growthChart.getCentylList()) {
+        for (Integer centyl: growthChart.getPercentilesList()) {
             XYSeries series = new XYSeries(centyl + " centyl");
             for (int age = 1; age <= 18; age++) {
                 series.add(age, growthChart.getValueAt(age, centyl));

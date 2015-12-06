@@ -6,7 +6,7 @@ import java.util.*;
  * GrowthCalculator
  * Created by Piotrek on 22-11-2015.
  */
-public class BoysWeightGrowthChart implements GrowthChart {
+public class BoysWeightGrowthChart extends GrowthChart {
 
     private static final LinkedHashMap<Integer,ArrayList<Double>> data = makeChart();
 
@@ -196,13 +196,13 @@ public class BoysWeightGrowthChart implements GrowthChart {
 
     @Override
     public double getValueAt(int age, int centyl) {
-        if (age > 0 && age < 19 && getCentylList().contains(centyl))
+        if (age > 0 && age < 19 && getPercentilesList().contains(centyl))
             return data.get(centyl).get(age-1);
         else throw new IllegalArgumentException();
     }
 
     @Override
-    public List<Integer> getCentylList() {
+    public List<Integer> getPercentilesList() {
         return new ArrayList<>(data.keySet());
     }
 }

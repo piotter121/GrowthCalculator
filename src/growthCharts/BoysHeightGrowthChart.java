@@ -9,7 +9,7 @@ import java.util.List;
  * GrowthCalculator
  * Created by Piotrek on 22-11-2015.
  */
-public class BoysHeightGrowthChart implements GrowthChart {
+public class BoysHeightGrowthChart extends GrowthChart {
     private static final LinkedHashMap<Integer,ArrayList<Double>> data = makeChart();
 
     private static LinkedHashMap<Integer, ArrayList<Double>> makeChart() {
@@ -198,20 +198,20 @@ public class BoysHeightGrowthChart implements GrowthChart {
 
     @Override
     public double getValueAt(int age, int centyl) {
-        if (age > 0 && age < 19 && getCentylList().contains(centyl))
+        if (age > 0 && age < 19 && getPercentilesList().contains(centyl))
             return data.get(centyl).get(age-1);
         else throw new IllegalArgumentException();
     }
 
     @Override
-    public List<Integer> getCentylList() {
+    public List<Integer> getPercentilesList() {
         return new ArrayList<>(data.keySet());
     }
 
     public static void main(String[] args) {
         BoysHeightGrowthChart chart = new BoysHeightGrowthChart();
         for (int i = 1; i <= 18; i++) {
-            List<Integer> centyls = chart.getCentylList();
+            List<Integer> centyls = chart.getPercentilesList();
             for (Integer j : centyls) {
                 System.out.println("Wiek " + i + ": centyl " + j + ": wzrost " + chart.getValueAt(i,j));
             }
