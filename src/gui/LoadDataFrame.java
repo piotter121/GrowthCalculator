@@ -17,19 +17,22 @@ public class LoadDataFrame extends JFrame {
     private JButton okButton;
     private JButton openFileButton;
     private JButton cancelButton;
+    private JButton clearButton;
     private JTable dataTable;
     private GrowthTableModel tableModel;
 
     public LoadDataFrame(LoadData controller) {
         super("Wczytaj dane");
         setSize(new Dimension(300,500));
-        this.loadData = controller;
+
+        loadData = controller;
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
         buttonsPanel = new JPanel(new FlowLayout());
         okButton = new JButton("OK");
         openFileButton = new JButton("Otwórz plik");
         cancelButton = new JButton("Anuluj");
+        clearButton = new JButton("Wyczyść tabelkę");
         createDataTable();
 
         cancelButton.addActionListener(e -> dispose());
@@ -41,6 +44,7 @@ public class LoadDataFrame extends JFrame {
         buttonsPanel.add(openFileButton);
         buttonsPanel.add(okButton);
         buttonsPanel.add(cancelButton);
+        buttonsPanel.add(clearButton);
         contentPanel.add(buttonsPanel);
         contentPanel.setMaximumSize(new Dimension(300,600));
         setContentPane(contentPanel);

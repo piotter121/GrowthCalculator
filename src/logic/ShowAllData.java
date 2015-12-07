@@ -33,8 +33,7 @@ public class ShowAllData {
                 PlotOrientation.VERTICAL, true, true, false);
 
         ((NumberAxis)chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
-        chart.getPlot().setBackgroundPaint( new Color(255,255,255,0) );
-       // chart.getPlot().setBackgroundImageAlpha(0.0f);
+        chart.getPlot().setBackgroundPaint(new Color(114, 115, 0, 127));
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(700,700));

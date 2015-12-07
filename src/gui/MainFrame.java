@@ -1,12 +1,11 @@
 package gui;
 
-import logic.*;
 import data.CalculatedData;
 import data.UserData;
 import growthCharts.BoysHeightGrowthChart;
 import growthCharts.factories.HeightGrowthChartsFactory;
 import growthCharts.factories.WeightGrowthChartsFactory;
-import org.jfree.chart.ChartPanel;
+import logic.*;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -44,18 +43,14 @@ public class MainFrame extends JFrame {
         setSize(1030,700);
 
         contentPane = new JPanel();
-        contentPane.setBackground(Color.white);
         chartPanel = new JPanel(new BorderLayout());
         rightPanel = new JPanel();
-        rightPanel.setBackground(Color.white);
         buttonsPanel = new JPanel(new FlowLayout());
-        buttonsPanel.setBackground(Color.white);
         loadButton = new JButton(LOAD_BUTTON_NAME);
         saveButton = new JButton(SAVE_BUTTON_NAME);
         optionsButton = new JButton(OPTIONS_BUTTON_NAME);
         resultsTable = new JTable(new GrowthTableModel());
         JScrollPane scrollPane = new JScrollPane(resultsTable);
-        scrollPane.setBackground(Color.white);
 
         showAllDataController = new ShowAllData(chartPanel, resultsTable);
         calculateDataController = new CalculateData(showAllDataController);
@@ -86,10 +81,7 @@ public class MainFrame extends JFrame {
     }
 
     private void configureButtons() {
-        loadButton.addActionListener(e -> {
-            loadDataController.start();
-            revalidate();
-        });
+        loadButton.addActionListener(e -> loadDataController.start());
 
         buttonsPanel.setMinimumSize(new Dimension(300,50));
         buttonsPanel.setPreferredSize(new Dimension(300,183));

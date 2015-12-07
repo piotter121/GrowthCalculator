@@ -5,8 +5,6 @@ import data.UserData;
 import growthCharts.GrowthChart;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * GrowthCalculator
@@ -25,7 +23,6 @@ public class CalculateData {
     public void calculateData(UserData userData) {
         Integer userDataCount = userData.getCount();
         Integer[] ages = userData.getAges();
-        Integer startPoint = ages[userDataCount - 1];
         GrowthChart chart = Options.getSex();
         ArrayList<Integer> matchedPercentiles = new ArrayList<>();
 
@@ -34,13 +31,19 @@ public class CalculateData {
             matchedPercentiles.add(chart.matchToPercentile(age, value));
         }
 
+        double averagePercentile = 0;
+        for (int matchedPercentil: matchedPercentiles) averagePercentile += matchedPercentil;
+        averagePercentile /= matchedPercentiles.size();
+        createCalculatedData(averagePercentile, ages[ages.length-1], chart);
+
         showAllData.show(Options.getSex(), userData, calculatedData);
     }
 
-    private void createCalculatedData(double averageFactor, int startPoint, GrowthChart chart) {
-        //for (int iterator = startPoint + 1; iterator <= 18; iterator++) {
+    private void createCalculatedData(double averagePercentile, int startPoint, GrowthChart chart) {
+        for (int iterator = startPoint + 1; iterator <= 18; iterator++) {
 
-        //}
+            //calculatedData.add(iterator,);
+        }
     }
 
     public CalculatedData getCalculatedData() {
