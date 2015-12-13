@@ -26,11 +26,12 @@ public class CalculatedData {
         values.put(age, value);
     }
 
-    public void delete(int age) {
-        values.remove(age);
-    }
-
     public Integer[] getAges() {
         return values.keySet().toArray(new Integer[values.size()]);
+    }
+
+    @Override
+    public String toString() {
+        return values.toString();
     }
 }

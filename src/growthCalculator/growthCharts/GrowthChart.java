@@ -10,7 +10,9 @@ import java.util.List;
  */
 public abstract class GrowthChart {
     public abstract double getValueAt(int age, int centyl);
+
     public abstract List<Integer> getPercentilesList();
+
     public int matchToPercentile(Integer age, double value) {
         List<Integer> percentiles = getPercentilesList();
         ArrayList<Double> abs = new ArrayList<>(percentiles.size());

@@ -28,14 +28,18 @@ public class CalculateData {
         ArrayList<Integer> matchedPercentiles = new ArrayList<>();
 
         for (Integer age: ages) {
-            double value = userData.getData(age);
+            double value = userData.getValue(age);
             matchedPercentiles.add(chart.matchToPercentile(age, value));
         }
 
         double averagePercentile = 0;
-        for (int matchedPercentil: matchedPercentiles) averagePercentile += matchedPercentil;
+        for (int matchedPercentile: matchedPercentiles) averagePercentile += matchedPercentile;
         averagePercentile = averagePercentile / matchedPercentiles.size();
-        createCalculatedData((int) Math.round(averagePercentile), ages[ages.length-1], chart);
+
+        int startPoint = ages[ages.length-1];
+        calculatedData.add(ages[startPoint],userData.getValue(startPoint));
+
+        createCalculatedData((int) Math.round(averagePercentile), startPoint, chart);
 
         showAllData.show(Options.getSex(), userData, calculatedData);
     }
@@ -43,9 +47,10 @@ public class CalculateData {
     private void createCalculatedData(int averagePercentile, int startPoint, GrowthChart chart) {
         List<Integer> percentiles = chart.getPercentilesList();
         ArrayList<Integer> abs = new ArrayList<>(percentiles.size());
-        for (int percentile: percentiles) abs.add(Math.abs(averagePercentile - percentile));
+        for (int percentile: percentiles)
+            abs.add(Math.abs(averagePercentile - percentile));
         int closestPercentile = percentiles.get(abs.indexOf(Collections.min(abs)));
-        double factor = ((double) averagePercentile)/((double) closestPercentile);
+        double factor = chart.getValueAt(startPoint, averagePercentile)/chart.getValueAt(startPoint, closestPercentile);
         for (int ageIterator = startPoint + 1; ageIterator <= 18; ageIterator++)
             calculatedData.add(ageIterator, factor * chart.getValueAt(ageIterator, closestPercentile));
     }

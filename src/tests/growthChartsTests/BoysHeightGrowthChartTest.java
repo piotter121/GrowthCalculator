@@ -29,5 +29,7 @@ public class BoysHeightGrowthChartTest {
 
         for (double val = 82; val < 90; val += step)
             assertEquals(97, instance.matchToPercentile(1,val), delta);
+
+        assertEquals(50, instance.matchToPercentile(10, 140), delta);
     }
 }

@@ -13,7 +13,7 @@ public class UserData{
         data = new HashMap<>();
     }
 
-    public double getData(int age) {
+    public double getValue(int age) {
         return data.get(age);
     }
 
@@ -27,5 +27,10 @@ public class UserData{
 
     public Integer[] getAges() {
         return data.keySet().toArray(new Integer[data.size()]);
+    }
+
+    @Override
+    public String toString() {
+        return data.toString();
     }
 }

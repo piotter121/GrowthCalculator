@@ -56,8 +56,8 @@ public class ShowAllData {
         if (uData.isSet()) {
             XYSeries series = new XYSeries("wprowadzone dane");
             for (int age: uData.getAges()) {
-                series.add(age, uData.getData(age));
-                resultTable.setValueAt(uData.getData(age), age-1, 1);
+                series.add(age, uData.getValue(age));
+                resultTable.setValueAt(uData.getValue(age), age-1, 1);
             }
             seriesCollection.addSeries(series);
         }
