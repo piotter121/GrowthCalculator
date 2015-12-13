@@ -1,6 +1,6 @@
-package growthCharts.factories;
+package growthCalculator.growthCharts.factories;
 
-import growthCharts.GrowthChart;
+import growthCalculator.growthCharts.GrowthChart;
 
 /**
  * GrowthCalculator

@@ -1,4 +1,4 @@
-package growthCharts;
+package growthCalculator.growthCharts;
 
 import java.util.*;
 

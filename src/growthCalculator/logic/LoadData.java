@@ -1,7 +1,7 @@
-package logic;
+package growthCalculator.logic;
 
-import data.UserData;
-import gui.LoadDataFrame;
+import growthCalculator.data.UserData;
+import growthCalculator.gui.LoadDataFrame;
 
 import javax.swing.*;
 
@@ -19,7 +19,7 @@ public class LoadData{
     public LoadData(CalculateData calculator) {
         this.calculator = calculator;
         loadDataFrame = new LoadDataFrame(this);
-
+        userData = new UserData();
     }
 
     public void start() {
@@ -27,7 +27,9 @@ public class LoadData{
     }
 
     public void loadData(double[][] data) {
-        userData = new UserData(data);
+        for (int i = 0; i < 18; i++)
+            if (data[i][1] > 0)
+                userData.add(i+1, data[i][1]);
         calculator.calculateData(userData);
     }
 }

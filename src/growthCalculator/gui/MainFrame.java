@@ -1,11 +1,11 @@
-package gui;
+package growthCalculator.gui;
 
-import data.CalculatedData;
-import data.UserData;
-import growthCharts.BoysHeightGrowthChart;
-import growthCharts.factories.HeightGrowthChartsFactory;
-import growthCharts.factories.WeightGrowthChartsFactory;
-import logic.*;
+import growthCalculator.data.CalculatedData;
+import growthCalculator.data.UserData;
+import growthCalculator.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
+import growthCalculator.growthCharts.factories.WeightGrowthChartsFactory;
+import growthCalculator.logic.*;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

@@ -1,8 +1,8 @@
-package logic;
+package growthCalculator.logic;
 
-import data.CalculatedData;
-import data.UserData;
-import growthCharts.GrowthChart;
+import growthCalculator.data.CalculatedData;
+import growthCalculator.data.UserData;
+import growthCalculator.growthCharts.GrowthChart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -27,7 +27,7 @@ public class ShowAllData {
         this.resultTable = resultTable;
     }
 
-    public JPanel show(GrowthChart growthChart, UserData userData, CalculatedData calculatedData) {
+    public void show(GrowthChart growthChart, UserData userData, CalculatedData calculatedData) {
         JFreeChart chart = ChartFactory.createXYLineChart("Wykres", "wiek", "wartość",
                 createSeriesCollection(growthChart, userData, calculatedData),
                 PlotOrientation.VERTICAL, true, true, false);
@@ -41,8 +41,6 @@ public class ShowAllData {
         chartContainer.removeAll();
         chartContainer.add(chartPanel, BorderLayout.CENTER);
         chartContainer.validate();
-
-        return chartPanel;
     }
 
     private XYSeriesCollection createSeriesCollection(GrowthChart growthChart, UserData uData, CalculatedData cData) {
@@ -54,11 +52,21 @@ public class ShowAllData {
             }
             seriesCollection.addSeries(series);
         }
+
         if (uData.isSet()) {
             XYSeries series = new XYSeries("wprowadzone dane");
             for (int age: uData.getAges()) {
                 series.add(age, uData.getData(age));
                 resultTable.setValueAt(uData.getData(age), age-1, 1);
+            }
+            seriesCollection.addSeries(series);
+        }
+
+        if (cData.isSet()) {
+            XYSeries series = new XYSeries("obliczone dane");
+            for (int age: cData.getAges()) {
+                series.add(age, cData.getValue(age));
+                resultTable.setValueAt(cData.getValue(age), age-1, 1);
             }
             seriesCollection.addSeries(series);
         }

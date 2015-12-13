@@ -1,9 +1,8 @@
-package logic;
+package growthCalculator.logic;
 
-import growthCharts.GrowthChart;
-import growthCharts.factories.GrowthChartsFactory;
-import growthCharts.factories.HeightGrowthChartsFactory;
-import gui.OptionsFrame;
+import growthCalculator.growthCharts.GrowthChart;
+import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
+import growthCalculator.gui.OptionsFrame;
 
 /**
  * GrowthCalculator

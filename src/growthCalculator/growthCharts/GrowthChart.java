@@ -1,9 +1,8 @@
-package growthCharts;
+package growthCalculator.growthCharts;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * GrowthCalculator

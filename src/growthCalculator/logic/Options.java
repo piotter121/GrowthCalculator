@@ -1,8 +1,8 @@
-package logic;
+package growthCalculator.logic;
 
-import growthCharts.GrowthChart;
-import growthCharts.factories.GrowthChartsFactory;
-import growthCharts.factories.HeightGrowthChartsFactory;
+import growthCalculator.growthCharts.GrowthChart;
+import growthCalculator.growthCharts.factories.GrowthChartsFactory;
+import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
 
 public class Options {
     static GrowthChartsFactory factory = new HeightGrowthChartsFactory();

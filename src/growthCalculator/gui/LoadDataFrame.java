@@ -1,6 +1,6 @@
-package gui;
+package growthCalculator.gui;
 
-import logic.LoadData;
+import growthCalculator.logic.LoadData;
 
 import javax.swing.*;
 import java.awt.*;
