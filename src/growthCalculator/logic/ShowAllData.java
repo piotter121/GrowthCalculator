@@ -1,7 +1,6 @@
 package growthCalculator.logic;
 
-import growthCalculator.data.CalculatedData;
-import growthCalculator.data.UserData;
+import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.GrowthChart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -10,7 +9,6 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -27,7 +25,7 @@ public class ShowAllData {
         this.resultTable = resultTable;
     }
 
-    public void show(GrowthChart growthChart, UserData userData, CalculatedData calculatedData) {
+    public void show(GrowthChart growthChart, CalculatorData userData, CalculatorData calculatedData) {
         JFreeChart chart = ChartFactory.createXYLineChart("Wykres", "wiek", "wartość",
                 createSeriesCollection(growthChart, userData, calculatedData),
                 PlotOrientation.VERTICAL, true, true, false);
@@ -43,7 +41,8 @@ public class ShowAllData {
         chartContainer.validate();
     }
 
-    private XYSeriesCollection createSeriesCollection(GrowthChart growthChart, UserData uData, CalculatedData cData) {
+    private XYSeriesCollection
+    createSeriesCollection(GrowthChart growthChart, CalculatorData userData, CalculatorData calculatedData) {
         XYSeriesCollection seriesCollection = new XYSeriesCollection();
         for (Integer centyl: growthChart.getPercentilesList()) {
             XYSeries series = new XYSeries(centyl + " centyl");
@@ -53,24 +52,23 @@ public class ShowAllData {
             seriesCollection.addSeries(series);
         }
 
-        if (uData.isSet()) {
-            XYSeries series = new XYSeries("wprowadzone dane");
-            for (int age: uData.getAges()) {
-                series.add(age, uData.getValue(age));
-                resultTable.setValueAt(uData.getValue(age), age-1, 1);
-            }
-            seriesCollection.addSeries(series);
+        if (userData.isSet()) {
+            seriesCollection.addSeries(createSeries(userData, "wprowadzone dane"));
         }
 
-        if (cData.isSet()) {
-            XYSeries series = new XYSeries("obliczone dane");
-            for (int age: cData.getAges()) {
-                series.add(age, cData.getValue(age));
-                resultTable.setValueAt(cData.getValue(age), age-1, 1);
-            }
-            seriesCollection.addSeries(series);
+        if (calculatedData.isSet()) {
+            seriesCollection.addSeries(createSeries(calculatedData, "obliczone dane"));
         }
 
         return seriesCollection;
+    }
+
+    private XYSeries createSeries(CalculatorData data, String name) {
+        XYSeries series = new XYSeries(name);
+        for (int age: data.getAges()) {
+            series.add(age, data.getValue(age));
+            resultTable.setValueAt(data.getValue(age), age-1, 1);
+        }
+        return series;
     }
 }

@@ -1,7 +1,6 @@
 package growthCalculator.logic;
 
-import growthCalculator.data.CalculatedData;
-import growthCalculator.data.UserData;
+import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.GrowthChart;
 
 import java.util.ArrayList;
@@ -15,14 +14,14 @@ import java.util.List;
 public class CalculateData {
     private ShowAllData showAllData;
 
-    private CalculatedData calculatedData;
+    private CalculatorData calculatedData;
 
     public CalculateData(ShowAllData showAllDataController) {
-        calculatedData = new CalculatedData();
+        calculatedData = new CalculatorData();
         showAllData = showAllDataController;
     }
 
-    public void calculateData(UserData userData) {
+    public void calculateData(CalculatorData userData) {
         Integer[] ages = userData.getAges();
         GrowthChart chart = Options.getSex();
         ArrayList<Integer> matchedPercentiles = new ArrayList<>();
@@ -55,7 +54,7 @@ public class CalculateData {
             calculatedData.add(ageIterator, factor * chart.getValueAt(ageIterator, closestPercentile));
     }
 
-    public CalculatedData getCalculatedData() {
+    public CalculatorData getCalculatedData() {
         return calculatedData;
     }
 }

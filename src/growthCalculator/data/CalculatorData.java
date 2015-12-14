@@ -6,10 +6,10 @@ import java.util.HashMap;
  * GrowthCalculator
  * Created by Piotrek on 05-12-2015.
  */
-public class CalculatedData {
+public class CalculatorData {
     private HashMap<Integer, Double> values;
 
-    public CalculatedData() {
+    public CalculatorData() {
         values = new HashMap<>();
     }
 
@@ -30,7 +30,6 @@ public class CalculatedData {
         return values.keySet().toArray(new Integer[values.size()]);
     }
 
-    @Override
     public String toString() {
         return values.toString();
     }

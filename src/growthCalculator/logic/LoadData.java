@@ -1,6 +1,6 @@
 package growthCalculator.logic;
 
-import growthCalculator.data.UserData;
+import growthCalculator.data.CalculatorData;
 import growthCalculator.gui.LoadDataFrame;
 
 import javax.swing.*;
@@ -12,14 +12,14 @@ import javax.swing.*;
 public class LoadData{
     private final JFrame loadDataFrame;
 
-    private UserData userData;
+    private CalculatorData userData;
 
     private CalculateData calculator;
 
     public LoadData(CalculateData calculator) {
         this.calculator = calculator;
         loadDataFrame = new LoadDataFrame(this);
-        userData = new UserData();
+        userData = new CalculatorData();
     }
 
     public void start() {

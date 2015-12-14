@@ -207,14 +207,4 @@ public class BoysHeightGrowthChart extends GrowthChart {
     public List<Integer> getPercentilesList() {
         return new ArrayList<>(data.keySet());
     }
-
-    public static void main(String[] args) {
-        BoysHeightGrowthChart chart = new BoysHeightGrowthChart();
-        for (int i = 1; i <= 18; i++) {
-            List<Integer> centyls = chart.getPercentilesList();
-            for (Integer j : centyls) {
-                System.out.println("Wiek " + i + ": centyl " + j + ": wzrost " + chart.getValueAt(i,j));
-            }
-        }
-    }
 }

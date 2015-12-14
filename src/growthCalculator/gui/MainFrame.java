@@ -1,7 +1,6 @@
 package growthCalculator.gui;
 
-import growthCalculator.data.CalculatedData;
-import growthCalculator.data.UserData;
+import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.BoysHeightGrowthChart;
 import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
 import growthCalculator.growthCharts.factories.WeightGrowthChartsFactory;
@@ -58,7 +57,7 @@ public class MainFrame extends JFrame {
         saveDataController = new SaveData();
         changeOptionsController = new ChangeOptions();
 
-        showAllDataController.show(new BoysHeightGrowthChart(), new UserData(), new CalculatedData());
+        showAllDataController.show(new BoysHeightGrowthChart(), new CalculatorData(), new CalculatorData());
 
         // Ustawienie głównego kontenera
         setContentPane(contentPane);

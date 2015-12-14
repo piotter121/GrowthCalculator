@@ -1,6 +1,6 @@
 package tests.logicTests;
 
-import growthCalculator.data.UserData;
+import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.BoysHeightGrowthChart;
 import growthCalculator.logic.CalculateData;
 import growthCalculator.logic.ShowAllData;
@@ -18,12 +18,12 @@ import static org.junit.Assert.*;
  */
 public class CalculateDataTest {
 
-    private UserData userData;
+    private CalculatorData userData;
     private CalculateData calculator;
 
     @Before
     public void setUp() throws Exception {
-        userData = new UserData();
+        userData = new CalculatorData();
         calculator = new CalculateData(new ShowAllData(new JPanel(),new JTable()));
     }
 
