@@ -34,11 +34,10 @@ public class CalculateDataTest {
 
     @Test
     public void testCalculateData() throws Exception {
-        userData.add(8, 131.5);
+        userData.add(8, 128);
         userData.add(9, 137);
-        System.out.println(new BoysHeightGrowthChart().matchToPercentile(8, 131.5));
+        System.out.println(new BoysHeightGrowthChart().matchToPercentile(8, 128));
         System.out.println(new BoysHeightGrowthChart().matchToPercentile(9, 137));
-        System.out.println(Math.round(62.5));
         calculator.calculateData(userData);
         System.out.println(userData);
         System.out.println(calculator.getCalculatedData());

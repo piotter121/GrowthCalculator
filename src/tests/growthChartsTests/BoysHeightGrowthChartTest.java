@@ -23,13 +23,7 @@ public class BoysHeightGrowthChartTest {
 
     @Test
     public void testMatchToPercentile() {
-        double step = 0.25;
-        for (double val = 50.0; val <= 73; val += step)
-            assertEquals(3, instance.matchToPercentile(1,val), delta);
-
-        for (double val = 82; val < 90; val += step)
-            assertEquals(97, instance.matchToPercentile(1,val), delta);
-
-        assertEquals(50, instance.matchToPercentile(10, 140), delta);
+        assertEquals(15, instance.matchToPercentile(18, 172), delta);
+        assertEquals(83, instance.matchToPercentile(18, 185), delta);
     }
 }

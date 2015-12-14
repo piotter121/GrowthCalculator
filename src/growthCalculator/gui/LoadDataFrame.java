@@ -27,7 +27,7 @@ public class LoadDataFrame extends JFrame {
 
         loadData = controller;
         contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         buttonsPanel = new JPanel(new FlowLayout());
         okButton = new JButton("OK");
         openFileButton = new JButton("Otwórz plik");
@@ -53,10 +53,10 @@ public class LoadDataFrame extends JFrame {
     }
 
     private void createDataTable() {
-        tableModel = new GrowthTableModel(){
+        tableModel = new GrowthTableModel(5) {
             @Override
-            public boolean isCellEditable(int row, int col) {
-                return col == 1;
+            public boolean isCellEditable(int r, int c) {
+                return true;
             }
         };
         dataTable = new JTable(tableModel);

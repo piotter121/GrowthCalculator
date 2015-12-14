@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
         loadButton = new JButton(LOAD_BUTTON_NAME);
         saveButton = new JButton(SAVE_BUTTON_NAME);
         optionsButton = new JButton(OPTIONS_BUTTON_NAME);
-        resultsTable = new JTable(new GrowthTableModel());
+        resultsTable = new JTable(new GrowthTableModel(18));
         JScrollPane scrollPane = new JScrollPane(resultsTable);
 
         showAllDataController = new ShowAllData(chartPanel, resultsTable);
@@ -98,8 +98,9 @@ public class MainFrame extends JFrame {
 class GrowthTableModel extends AbstractTableModel {
     private String[] colNames;
     private double[][] data;
+    private int rows;
 
-    GrowthTableModel() {
+    GrowthTableModel(int rows) {
         super();
         colNames = new String[2];
         colNames[0] = "Wiek";
@@ -110,15 +111,18 @@ class GrowthTableModel extends AbstractTableModel {
         } else {
             colNames[1] = "";
         }
-        data = new double[18][2];
-        for (int i = 0; i < 18; i++) {
-            data[i][0] = i + 1;
-            data[i][1] = 0;
-        }
+        this.rows = rows;
+        data = new double[this.rows][2];
+        for (int i = 0; i < this.rows; i++)
+            data[i][0] = data[i][1] = 0;
     }
 
-    public double[][] getData() {
-        return data;
+    public CalculatorData getData() {
+        CalculatorData cd = new CalculatorData();
+        for (int i = 0; i < rows; i++)
+            if (data[i][0] > 0 && data[i][0] < 19 && data[i][1] > 0)
+                cd.add((int) Math.round(data[i][0]), data[i][1]);
+        return cd;
     }
 
     @Override
@@ -128,7 +132,7 @@ class GrowthTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return 18;
+        return rows;
     }
 
     @Override

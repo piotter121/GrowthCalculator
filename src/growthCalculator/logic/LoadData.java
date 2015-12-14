@@ -26,10 +26,9 @@ public class LoadData{
         SwingUtilities.invokeLater(() -> loadDataFrame.setVisible(true));
     }
 
-    public void loadData(double[][] data) {
-        for (int i = 0; i < 18; i++)
-            if (data[i][1] > 0)
-                userData.add(i+1, data[i][1]);
+    public void loadData(CalculatorData data) {
+        for (Integer age: data.getAges())
+            userData.add(age, data.getValue(age));
         calculator.calculateData(userData);
     }
 }

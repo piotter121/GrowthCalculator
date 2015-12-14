@@ -67,6 +67,7 @@ public class ShowAllData {
         XYSeries series = new XYSeries(name);
         for (int age: data.getAges()) {
             series.add(age, data.getValue(age));
+            resultTable.setValueAt(age, age - 1, 0);
             resultTable.setValueAt(data.getValue(age), age-1, 1);
         }
         return series;
