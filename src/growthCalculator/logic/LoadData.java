@@ -4,13 +4,14 @@ import growthCalculator.data.CalculatorData;
 import growthCalculator.gui.LoadDataFrame;
 
 import javax.swing.*;
+import java.io.File;
 
 /**
  * GrowthCalculator
  * Created by Piotrek on 23-11-2015.
  */
 public class LoadData{
-    private final JFrame loadDataFrame;
+    private JFrame loadDataFrame;
 
     private CalculatorData userData;
 
@@ -18,17 +19,30 @@ public class LoadData{
 
     public LoadData(CalculateData calculator) {
         this.calculator = calculator;
-        loadDataFrame = new LoadDataFrame(this);
         userData = new CalculatorData();
     }
 
     public void start() {
-        SwingUtilities.invokeLater(() -> loadDataFrame.setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            loadDataFrame = new LoadDataFrame(LoadData.this);
+            loadDataFrame.pack();
+            loadDataFrame.setVisible(true);
+        });
     }
 
-    public void loadData(CalculatorData data) {
-        for (Integer age: data.getAges())
-            userData.add(age, data.getValue(age));
-        calculator.calculateData(userData);
+    public void loadData(CalculatorData userData) {
+        this.userData = userData;
+    }
+
+    public void loadData(File file) {
+
+    }
+
+    public void sendToCalculator() {
+        calculator.calculateAndShowData(userData);
+    }
+
+    public CalculatorData getUserData() {
+        return userData;
     }
 }

@@ -22,30 +22,33 @@ public class CalculateData {
         showAllData = showAllDataController;
     }
 
-    public void calculateData(CalculatorData userData) {
-        Integer[] ages = userData.getAges();
-        GrowthChart chart = Options.getSex();
-        int matchedPercentiles = 0;
-        int counter = 0;
+    public void calculateAndShowData(CalculatorData userData) {
+        if (userData.isSet()) {
+            Integer[] ages = userData.getAges();
+            GrowthChart chart = Options.getSex();
+            int matchedPercentiles = 0;
+            int counter = 0;
 
-        for (Integer age: ages) {
-            double value = userData.getValue(age);
-            matchedPercentiles += chart.matchToPercentile(age, value);
-            counter++;
+            for (Integer age : ages) {
+                double value = userData.getValue(age);
+                matchedPercentiles += chart.matchToPercentile(age, value);
+                counter++;
+            }
+            int average = (int) Math.round(((double) matchedPercentiles) / ((double) counter));
+            int startPoint = ages[ages.length - 1];
+            calculatedData.add(startPoint, userData.getValue(startPoint));
+            createCalculatedData(average, ++startPoint, chart);
+        } else {
+            calculatedData = new CalculatorData();
         }
-        int average = (int) Math.round(((double) matchedPercentiles) / ((double) counter));
-        int startPoint = ages[ages.length-1];
-        calculatedData.add(startPoint, userData.getValue(startPoint));
-        createCalculatedData(average, ++startPoint, chart);
-
         showAllData.show(Options.getSex(), userData, calculatedData);
     }
 
-    private void createCalculatedData(int avarage, int startPoint, GrowthChart chart) {
-        if (avarage < 3 || avarage > 97 || startPoint < 1 || startPoint > 18)
+    private void createCalculatedData(int average, int startPoint, GrowthChart chart) {
+        if (average < 3 || average > 97 || startPoint < 1 || startPoint > 18)
             throw new IllegalArgumentException();
         for (int i = startPoint; i < (startPoint + 3) && i < 19; i++)
-            calculatedData.add(i, findValue(i, avarage, chart));
+            calculatedData.add(i, findValue(i, average, chart));
     }
 
     private double findValue(int age, int average, GrowthChart chart) {

@@ -2,6 +2,7 @@ package growthCalculator.logic;
 
 import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.GrowthChart;
+import growthCalculator.gui.GrowthTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -18,11 +19,11 @@ import java.awt.*;
  */
 public class ShowAllData {
     private JPanel chartContainer;
-    private JTable resultTable;
+    private GrowthTableModel resultTableModel;
 
-    public ShowAllData(JPanel chartPanel, JTable resultTable) {
+    public ShowAllData(JPanel chartPanel, GrowthTableModel resultTableModel) {
         this.chartContainer = chartPanel;
-        this.resultTable = resultTable;
+        this.resultTableModel = resultTableModel;
     }
 
     public void show(GrowthChart growthChart, CalculatorData userData, CalculatorData calculatedData) {
@@ -39,37 +40,44 @@ public class ShowAllData {
         chartContainer.removeAll();
         chartContainer.add(chartPanel, BorderLayout.CENTER);
         chartContainer.validate();
+
+        showInTable(userData);
+        showInTable(calculatedData);
+    }
+
+    private void showInTable(CalculatorData calculatorData) {
+        if (!calculatorData.isSet())
+            resultTableModel.fillUpWithZeros();
+
+        for (Integer age: calculatorData.getAges()) {
+            resultTableModel.setValueAt(age, age - 1, 0);
+            resultTableModel.setValueAt(calculatorData.getValue(age), age - 1, 1);
+        }
     }
 
     private XYSeriesCollection
     createSeriesCollection(GrowthChart growthChart, CalculatorData userData, CalculatorData calculatedData) {
         XYSeriesCollection seriesCollection = new XYSeriesCollection();
-        for (Integer centyl: growthChart.getPercentilesList()) {
-            XYSeries series = new XYSeries(centyl + " centyl");
-            for (int age = 1; age <= 18; age++) {
-                series.add(age, growthChart.getValueAt(age, centyl));
-            }
+        for (Integer percentile: growthChart.getPercentilesList()) {
+            XYSeries series = new XYSeries(percentile + " centyl");
+            for (int age = 1; age <= 18; age++)
+                series.add(age, growthChart.getValueAt(age, percentile));
             seriesCollection.addSeries(series);
         }
 
-        if (userData.isSet()) {
+        if (userData.isSet())
             seriesCollection.addSeries(createSeries(userData, "wprowadzone dane"));
-        }
 
-        if (calculatedData.isSet()) {
+        if (calculatedData.isSet())
             seriesCollection.addSeries(createSeries(calculatedData, "obliczone dane"));
-        }
 
         return seriesCollection;
     }
 
     private XYSeries createSeries(CalculatorData data, String name) {
         XYSeries series = new XYSeries(name);
-        for (int age: data.getAges()) {
+        for (int age: data.getAges())
             series.add(age, data.getValue(age));
-            resultTable.setValueAt(age, age - 1, 0);
-            resultTable.setValueAt(data.getValue(age), age-1, 1);
-        }
         return series;
     }
 }

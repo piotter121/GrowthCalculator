@@ -2,12 +2,9 @@ package growthCalculator.gui;
 
 import growthCalculator.data.CalculatorData;
 import growthCalculator.growthCharts.BoysHeightGrowthChart;
-import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
-import growthCalculator.growthCharts.factories.WeightGrowthChartsFactory;
 import growthCalculator.logic.*;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
 /**
@@ -23,7 +20,6 @@ public class MainFrame extends JFrame {
 
     private LoadData loadDataController;
     private SaveData saveDataController;
-    private CalculateData calculateDataController;
     private ChangeOptions changeOptionsController;
     private ShowAllData showAllDataController;
 
@@ -48,12 +44,13 @@ public class MainFrame extends JFrame {
         loadButton = new JButton(LOAD_BUTTON_NAME);
         saveButton = new JButton(SAVE_BUTTON_NAME);
         optionsButton = new JButton(OPTIONS_BUTTON_NAME);
-        resultsTable = new JTable(new GrowthTableModel(18));
+
+        GrowthTableModel tableModel = new GrowthTableModel(18);
+        resultsTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(resultsTable);
 
-        showAllDataController = new ShowAllData(chartPanel, resultsTable);
-        calculateDataController = new CalculateData(showAllDataController);
-        loadDataController = new LoadData(calculateDataController);
+        showAllDataController = new ShowAllData(chartPanel, tableModel);
+        loadDataController = new LoadData(new CalculateData(showAllDataController));
         saveDataController = new SaveData();
         changeOptionsController = new ChangeOptions();
 
@@ -92,62 +89,5 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) {
        SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
-    }
-}
-
-class GrowthTableModel extends AbstractTableModel {
-    private String[] colNames;
-    private double[][] data;
-    private int rows;
-
-    GrowthTableModel(int rows) {
-        super();
-        colNames = new String[2];
-        colNames[0] = "Wiek";
-        if (Options.getFactory() instanceof HeightGrowthChartsFactory) {
-            colNames[1] = "Wzrost";
-        } else if (Options.getFactory() instanceof WeightGrowthChartsFactory) {
-            colNames[1] = "Waga";
-        } else {
-            colNames[1] = "";
-        }
-        this.rows = rows;
-        data = new double[this.rows][2];
-        for (int i = 0; i < this.rows; i++)
-            data[i][0] = data[i][1] = 0;
-    }
-
-    public CalculatorData getData() {
-        CalculatorData cd = new CalculatorData();
-        for (int i = 0; i < rows; i++)
-            if (data[i][0] > 0 && data[i][0] < 19 && data[i][1] > 0)
-                cd.add((int) Math.round(data[i][0]), data[i][1]);
-        return cd;
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return colNames[col];
-    }
-
-    @Override
-    public int getRowCount() {
-        return rows;
-    }
-
-    @Override
-    public int getColumnCount() {
-        return 2;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        return data[rowIndex][columnIndex];
-    }
-
-    @Override
-    public void setValueAt(Object value, int row, int col) {
-        data[row][col] = Double.parseDouble(value.toString());
-        fireTableCellUpdated(row, col);
     }
 }
