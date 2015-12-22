@@ -1,7 +1,7 @@
 package growthCalculator.gui;
 
 import growthCalculator.data.CalculatorData;
-import growthCalculator.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.data.growthCharts.BoysHeightGrowthChart;
 import growthCalculator.logic.*;
 
 import javax.swing.*;
@@ -18,10 +18,10 @@ public class MainFrame extends JFrame {
     private static final String SAVE_BUTTON_NAME = "Zapisz dane";
     private static final String OPTIONS_BUTTON_NAME = "Opcje obliczeń";
 
-    private LoadData loadDataController;
-    private SaveData saveDataController;
+    private LoadMeasuredFeatures loadMeasuredFeaturesController;
+    private SaveFutureFeatures saveFutureFeaturesController;
     private ChangeOptions changeOptionsController;
-    private ShowAllData showAllDataController;
+    private ShowCalculatorData showCalculatorDataController;
 
     private JPanel contentPane;
     private JPanel chartPanel;
@@ -49,12 +49,12 @@ public class MainFrame extends JFrame {
         resultsTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(resultsTable);
 
-        showAllDataController = new ShowAllData(chartPanel, tableModel);
-        loadDataController = new LoadData(new CalculateData(showAllDataController));
-        saveDataController = new SaveData();
+        showCalculatorDataController = new ShowCalculatorData(chartPanel, tableModel);
+        loadMeasuredFeaturesController = new LoadMeasuredFeatures(new CalculateFeatureFeatures(showCalculatorDataController));
+        saveFutureFeaturesController = new SaveFutureFeatures();
         changeOptionsController = new ChangeOptions();
 
-        showAllDataController.show(new BoysHeightGrowthChart(), new CalculatorData(), new CalculatorData());
+        showCalculatorDataController.show(new BoysHeightGrowthChart(), new CalculatorData(), new CalculatorData());
 
         // Ustawienie głównego kontenera
         setContentPane(contentPane);
@@ -77,7 +77,7 @@ public class MainFrame extends JFrame {
     }
 
     private void configureButtons() {
-        loadButton.addActionListener(e -> loadDataController.start());
+        loadButton.addActionListener(e -> loadMeasuredFeaturesController.start());
 
         buttonsPanel.setMinimumSize(new Dimension(300,50));
         buttonsPanel.setPreferredSize(new Dimension(300,183));

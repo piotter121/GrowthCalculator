@@ -1,8 +1,10 @@
 package growthCalculator.logic;
 
 import growthCalculator.data.CalculatorData;
-import growthCalculator.growthCharts.GrowthChart;
+import growthCalculator.data.growthCharts.GrowthChart;
+import growthCalculator.exceptions.CalculationException;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,17 +14,17 @@ import java.util.stream.Collectors;
  * GrowthCalculator
  * Created by Piotrek on 23-11-2015.
  */
-public class CalculateData {
-    private ShowAllData showAllData;
+public class CalculateFeatureFeatures {
+    private ShowCalculatorData showCalculatorData;
 
     private CalculatorData calculatedData;
 
-    public CalculateData(ShowAllData showAllDataController) {
+    public CalculateFeatureFeatures(ShowCalculatorData showCalculatorDataController) {
         calculatedData = new CalculatorData();
-        showAllData = showAllDataController;
+        showCalculatorData = showCalculatorDataController;
     }
 
-    public void calculateAndShowData(CalculatorData userData) {
+    public void calculateAndShowData(CalculatorData userData) throws CalculationException {
         if (userData.isSet()) {
             Integer[] ages = userData.getAges();
             GrowthChart chart = Options.getSex();
@@ -37,18 +39,20 @@ public class CalculateData {
             int average = (int) Math.round(((double) matchedPercentiles) / ((double) counter));
             int startPoint = ages[ages.length - 1];
             calculatedData.add(startPoint, userData.getValue(startPoint));
+
             createCalculatedData(average, ++startPoint, chart);
         } else {
             calculatedData = new CalculatorData();
         }
-        showAllData.show(Options.getSex(), userData, calculatedData);
+        showCalculatorData.show(Options.getSex(), userData, calculatedData);
     }
 
-    private void createCalculatedData(int average, int startPoint, GrowthChart chart) {
-        if (average < 3 || average > 97 || startPoint < 1 || startPoint > 18)
-            throw new IllegalArgumentException();
-        for (int i = startPoint; i < (startPoint + 3) && i < 19; i++)
+    private void createCalculatedData(int average, int startPoint, GrowthChart chart) throws CalculationException {
+        if (average < 3 || average > 97)
+            throw new CalculationException("Rozwój dziecka nie mieści się w granicach między 3 a 97 centylem!");
+        for (int i = startPoint; i < (startPoint + 3) && i < 19; i++) {
             calculatedData.add(i, findValue(i, average, chart));
+        }
     }
 
     private double findValue(int age, int average, GrowthChart chart) {
@@ -66,9 +70,9 @@ public class CalculateData {
             lowerPercentile = percentiles.get(index - 1);
         }
         double lowerValue = chart.getValueAt(age, lowerPercentile);
-        int percentilesRange = upperPercentile - lowerPercentile;
+        double percentilesRange = upperPercentile - lowerPercentile;
         double valueRange = chart.getValueAt(age, upperPercentile) - lowerValue;
-        double valuesPerPercentile = valueRange / (double) percentilesRange;
+        double valuesPerPercentile = valueRange / percentilesRange;
         return lowerValue + valuesPerPercentile * (average - lowerPercentile);
     }
 

@@ -1,6 +1,6 @@
 package growthCalculator.gui;
 
-import growthCalculator.logic.LoadData;
+import growthCalculator.logic.LoadMeasuredFeatures;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.io.File;
  * Created by Piotrek on 01-12-2015.
  */
 public class LoadDataFrame extends JFrame {
-    private LoadData loadData;
+    private LoadMeasuredFeatures loadMeasuredFeatures;
 
     private JPanel contentPanel;
     private JPanel buttonsPanel;
@@ -22,12 +22,12 @@ public class LoadDataFrame extends JFrame {
     private JTable dataTable;
     private GrowthTableModel tableModel;
 
-    public LoadDataFrame(LoadData controller) {
+    public LoadDataFrame(LoadMeasuredFeatures controller) {
         super("Wczytaj dane");
         setSize(new Dimension(300,500));
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        loadData = controller;
+        loadMeasuredFeatures = controller;
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         buttonsPanel = new JPanel(new FlowLayout());
@@ -37,13 +37,19 @@ public class LoadDataFrame extends JFrame {
         clearButton = new JButton("Wyczyść tabelkę");
         JScrollPane tablePane = createDataTable();
 
+        // ActionListener dla przycisku Anuluj
         cancelButton.addActionListener(e -> dispose());
+
+        // ActionListener dla przycisku OK
         okButton.addActionListener(e -> {
             dispose();
-            loadData.loadData(tableModel.getData());
-            loadData.sendToCalculator();
+            process();
         });
-        clearButton.addActionListener(e -> tableModel.fillUpWithZeros());
+
+        // ActionListener dla przycisku Wyczyść tabelkę
+        clearButton.addActionListener(e -> purgeTable());
+
+        // ActionListener dla przycisku Otwórz plik
         openFileButton.addActionListener(e -> {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.addChoosableFileFilter(new FileFilter() {
@@ -74,8 +80,8 @@ public class LoadDataFrame extends JFrame {
                     break;
                 case JFileChooser.APPROVE_OPTION:
                     LoadDataFrame.this.dispose();
-                    loadData.loadData(fileChooser.getSelectedFile());
-                    loadData.sendToCalculator();
+                    loadMeasuredFeatures.loadData(fileChooser.getSelectedFile());
+                    loadMeasuredFeatures.sendToCalculator();
                     break;
                 case JFileChooser.ERROR_OPTION:
                     JOptionPane.showMessageDialog(fileChooser, "Nastąpił niespodziewany błąd", "Błąd",
@@ -107,5 +113,14 @@ public class LoadDataFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(dataTable);
         scrollPane.setPreferredSize(new Dimension(300,200));
         return scrollPane;
+    }
+
+    public void purgeTable() {
+        tableModel.fillUpWithZeros();
+    }
+
+    private void process() {
+        loadMeasuredFeatures.loadData(tableModel);
+        loadMeasuredFeatures.sendToCalculator();
     }
 }

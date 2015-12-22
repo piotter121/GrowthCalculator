@@ -1,8 +1,8 @@
 package growthCalculator.gui;
 
 import growthCalculator.data.CalculatorData;
-import growthCalculator.growthCharts.factories.HeightGrowthChartsFactory;
-import growthCalculator.growthCharts.factories.WeightGrowthChartsFactory;
+import growthCalculator.data.growthCharts.factories.HeightGrowthChartsFactory;
+import growthCalculator.data.growthCharts.factories.WeightGrowthChartsFactory;
 import growthCalculator.logic.Options;
 
 import javax.swing.table.AbstractTableModel;
@@ -29,14 +29,6 @@ public class GrowthTableModel extends AbstractTableModel {
         }
         this.rows = rows;
         fillUpWithZeros();
-    }
-
-    public CalculatorData getData() {
-        CalculatorData cd = new CalculatorData();
-        for (int i = 0; i < rows; i++)
-            if (data[i][0] > 0 && data[i][0] < 19 && data[i][1] > 0)
-                cd.add((int) Math.round(data[i][0]), data[i][1]);
-        return cd;
     }
 
     @Override

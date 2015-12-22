@@ -1,7 +1,6 @@
-package growthCalculator.growthCharts;
+package growthCalculator.data.growthCharts;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -10,7 +9,7 @@ import java.util.ListIterator;
  * Created by Piotrek on 15-11-2015.
  */
 public abstract class GrowthChart {
-    public abstract double getValueAt(int age, int centyl);
+    public abstract double getValueAt(int age, int percentile);
 
     public abstract List<Integer> getPercentilesList();
 

@@ -1,4 +1,4 @@
-package growthCalculator.growthCharts;
+package growthCalculator.data.growthCharts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,10 +197,10 @@ public class BoysHeightGrowthChart extends GrowthChart {
     }
 
     @Override
-    public double getValueAt(int age, int centyl) {
-        if (age > 0 && age < 19 && getPercentilesList().contains(centyl))
-            return data.get(centyl).get(age-1);
-        else throw new IllegalArgumentException();
+    public double getValueAt(int age, int percentile) throws IllegalArgumentException {
+        if (age <= 0 || age >= 19 || !getPercentilesList().contains(percentile))
+            throw new IllegalArgumentException("Żądana wartość nie istnieje");
+        else return data.get(percentile).get(age - 1);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package tests.growthChartsTests;
 
-import growthCalculator.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.data.growthCharts.BoysHeightGrowthChart;
 import org.junit.Before;
 import org.junit.Test;
 

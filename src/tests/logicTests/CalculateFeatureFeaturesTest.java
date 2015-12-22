@@ -1,29 +1,24 @@
 package tests.logicTests;
 
 import growthCalculator.data.CalculatorData;
-import growthCalculator.growthCharts.BoysHeightGrowthChart;
-import growthCalculator.gui.GrowthTableModel;
-import growthCalculator.logic.CalculateData;
-import growthCalculator.logic.ShowAllData;
+import growthCalculator.data.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.logic.CalculateFeatureFeatures;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.swing.*;
 
 /**
  * GrowthCalculator
  * Created by Piotrek on 13-12-2015.
  */
-public class CalculateDataTest {
+public class CalculateFeatureFeaturesTest {
 
     private CalculatorData userData;
-    private CalculateData calculator;
+    private CalculateFeatureFeatures calculator;
 
     @Before
     public void setUp() throws Exception {
         userData = new CalculatorData();
-        calculator = new CalculateData(new ShowAllData(new JPanel(), new GrowthTableModel(1)));
     }
 
     @After

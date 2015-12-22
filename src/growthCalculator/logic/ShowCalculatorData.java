@@ -1,7 +1,7 @@
 package growthCalculator.logic;
 
 import growthCalculator.data.CalculatorData;
-import growthCalculator.growthCharts.GrowthChart;
+import growthCalculator.data.growthCharts.GrowthChart;
 import growthCalculator.gui.GrowthTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -17,11 +17,11 @@ import java.awt.*;
  * GrowthCalculator
  * Created by Piotrek on 05-12-2015.
  */
-public class ShowAllData {
+public class ShowCalculatorData {
     private JPanel chartContainer;
     private GrowthTableModel resultTableModel;
 
-    public ShowAllData(JPanel chartPanel, GrowthTableModel resultTableModel) {
+    public ShowCalculatorData(JPanel chartPanel, GrowthTableModel resultTableModel) {
         this.chartContainer = chartPanel;
         this.resultTableModel = resultTableModel;
     }
