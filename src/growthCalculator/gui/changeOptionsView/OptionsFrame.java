@@ -1,4 +1,4 @@
-package growthCalculator.gui;
+package growthCalculator.gui.changeOptionsView;
 
 import javax.swing.*;
 

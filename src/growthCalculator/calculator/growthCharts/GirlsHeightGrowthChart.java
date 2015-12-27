@@ -1,4 +1,4 @@
-package growthCalculator.data.growthCharts;
+package growthCalculator.calculator.growthCharts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.List;
  * GrowthCalculator
  * Created by Piotrek on 22-11-2015.
  */
-public class BoysHeightGrowthChart extends GrowthChart {
+public class GirlsHeightGrowthChart extends GrowthChart {
     private static final LinkedHashMap<Integer,ArrayList<Double>> data = makeChart();
 
     private static LinkedHashMap<Integer, ArrayList<Double>> makeChart() {
@@ -21,24 +21,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 3;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                72.0,
-                84.0,
+                70.5,
+                81.0,
                 90.0,
-                97.0,
-                104.0,
-                110.0,
-                115.0,
-                120.0,
+                96.0,
+                102.0,
+                107.0,
+                113.0,
+                119.0,
                 124.0,
-                128.5,
+                128.0,
                 134.0,
                 140.0,
-                145.0,
-                151.0,
-                158.0,
-                165.0,
-                166.5,
-                167.0
+                146.0,
+                150.0,
+                152.0,
+                153.0,
+                153.5,
+                154.0
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -46,24 +46,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 10;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                74.0,
-                85.0,
-                92.0,
-                99.0,
-                106.0,
-                112.0,
-                118.0,
-                123.0,
-                128.0,
-                133.0,
+                72.0,
+                83.0,
+                91.0,
+                98.0,
+                105.0,
+                110.0,
+                115.0,
+                121.0,
+                127.0,
+                132.0,
                 138.0,
-                143.5,
-                149.0,
-                155.0,
-                163.0,
-                168.0,
-                170.0,
-                170.5
+                144.0,
+                150.0,
+                154.0,
+                156.0,
+                157.0,
+                157.5,
+                158.0
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -71,24 +71,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 25;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                75.0,
-                87.0,
-                94.5,
-                101.0,
-                108.0,
-                114.5,
-                121.0,
-                126.0,
-                132.0,
-                137.0,
+                73.5,
+                84.0,
+                93.0,
+                100.0,
+                107.0,
+                113.0,
+                119.0,
+                125.0,
+                130.0,
+                136.0,
                 142.0,
-                147.0,
-                153.5,
-                160.0,
-                167.0,
-                172.0,
-                175.0,
-                175.0
+                148.0,
+                154.0,
+                158.0,
+                159.5,
+                160.5,
+                161.0,
+                161.5
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -96,24 +96,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 50;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                77.0,
-                88.5,
-                97.0,
-                105.0,
-                111.0,
-                117.5,
-                124.0,
-                129.5,
+                75.0,
+                86.0,
+                95.0,
+                103.0,
+                110.0,
+                116.5,
+                123.0,
+                129.0,
                 135.0,
                 141.0,
                 146.0,
-                152.0,
+                153.0,
                 159.0,
-                166.0,
-                171.5,
-                176.0,
-                178.5,
-                179.0
+                162.0,
+                163.5,
+                164.5,
+                165.0,
+                165.5
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -121,24 +121,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 75;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                79.0,
-                90.0,
-                99.0,
-                107.0,
+                77.0,
+                89.0,
+                98.0,
+                106.0,
                 114.0,
-                121.0,
+                120.0,
                 127.0,
                 133.0,
-                139.0,
+                138.0,
                 145.0,
-                150.0,
-                157.0,
-                165.0,
-                172.0,
-                176.5,
-                180.5,
-                182.5,
-                183.0
+                151.0,
+                157.5,
+                163.0,
+                166.0,
+                167.5,
+                168.5,
+                169.0,
+                169.0
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -146,24 +146,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 90;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                80.0,
-                92.0,
+                78.5,
+                90.0,
                 100.0,
-                110.0,
-                117.0,
-                125.0,
-                130.5,
-                137.0,
-                142.5,
+                108.0,
+                116.0,
+                124.0,
+                130.0,
+                136.0,
+                143.0,
                 149.0,
-                155.0,
-                162.5,
-                170.0,
-                176.0,
-                181.0,
-                185.0,
-                187.0,
-                187.0
+                156.0,
+                161.5,
+                167.0,
+                169.5,
+                171.0,
+                172.0,
+                172.5,
+                172.5
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);
@@ -171,24 +171,24 @@ public class BoysHeightGrowthChart extends GrowthChart {
         centyl = 97;
         chartData = new ArrayList<>(18);
         myData = new Double[]{
-                82.0,
-                94.0,
-                103.0,
-                113.0,
-                120.0,
-                128.5,
-                134.5,
+                80.0,
+                92.0,
+                102.0,
+                110.0,
+                119.0,
+                127.0,
+                135.0,
                 140.0,
                 147.0,
-                153.5,
-                159.0,
-                167.0,
-                175.0,
-                182.0,
-                185.0,
-                189.0,
-                190.0,
-                190.5
+                153.0,
+                160.0,
+                166.0,
+                170.0,
+                173.0,
+                174.5,
+                175.5,
+                176.0,
+                176.0
         };
         chartData.addAll(Arrays.asList(myData));
         createdChartData.put(centyl,chartData);

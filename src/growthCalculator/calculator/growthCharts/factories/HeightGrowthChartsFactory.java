@@ -1,8 +1,8 @@
-package growthCalculator.data.growthCharts.factories;
+package growthCalculator.calculator.growthCharts.factories;
 
-import growthCalculator.data.growthCharts.BoysHeightGrowthChart;
-import growthCalculator.data.growthCharts.GirlsHeightGrowthChart;
-import growthCalculator.data.growthCharts.GrowthChart;
+import growthCalculator.calculator.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.calculator.growthCharts.GirlsHeightGrowthChart;
+import growthCalculator.calculator.growthCharts.GrowthChart;
 
 /**
  * GrowthCalculator

@@ -1,4 +1,4 @@
-package growthCalculator.data.growthCharts;
+package growthCalculator.calculator.growthCharts;
 
 import java.util.ArrayList;
 import java.util.List;
