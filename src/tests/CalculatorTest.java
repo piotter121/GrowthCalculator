@@ -1,8 +1,11 @@
 package tests;
 
 import growthCalculator.calculator.Calculator;
+import growthCalculator.logic.SaveDataToFile;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.event.ActionEvent;
 
 import static org.junit.Assert.*;
 
@@ -25,5 +28,6 @@ public class CalculatorTest {
         System.out.println(calculator.getUserData());
         calculator.calculate();
         System.out.println(calculator.getCalculationResult());
+        new SaveDataToFile(calculator.getCalculationResult()).actionPerformed(new ActionEvent(new Object(), 1, "pl"));
     }
 }

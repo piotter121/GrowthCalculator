@@ -1,10 +1,8 @@
 package growthCalculator.logic;
 
-import growthCalculator.calculator.Calculator;
-import growthCalculator.gui.loadDataView.LoadDataFrame;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -16,9 +14,9 @@ import java.io.FileReader;
  * Created by Piotrek on 27-12-2015.
  */
 public class ReadDataFromFile implements ActionListener {
-    private LoadDataFrame.LoadDataTableModel table;
+    private TableModel table;
 
-    public ReadDataFromFile(LoadDataFrame.LoadDataTableModel table) {
+    public ReadDataFromFile(TableModel table) {
         this.table = table;
     }
 

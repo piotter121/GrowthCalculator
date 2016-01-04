@@ -1,13 +1,10 @@
 package growthCalculator.logic;
 
 import growthCalculator.calculator.Calculator;
+import growthCalculator.gui.DataTableModel;
 
-import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
-
-import static javax.swing.event.TableModelEvent.ALL_COLUMNS;
 
 /**
  * GrowthCalculator
@@ -23,16 +20,24 @@ public class DataTableChangeListener implements TableModelListener {
 
     @Override
     public void tableChanged(TableModelEvent e) {
-        if (e.getColumn() == ALL_COLUMNS)
-            return;
-        TableModel model = (TableModel) e.getSource();
-        int row = e.getFirstRow();
-        int column = e.getColumn();
-        Double valueFromTable = (Double) model.getValueAt(row, column);
-        try {
-            calculator.set(row + 1, valueFromTable);
-        } catch (IllegalArgumentException exception) {
-            JOptionPane.showMessageDialog(null, exception.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
+        int column;
+        if ((column = e.getColumn()) == 1) {
+            DataTableModel model = (DataTableModel) e.getSource();
+            int row = e.getFirstRow();
+            int age = row + 1;
+
+            Double valueFromTable = (Double) model.getValueAt(row, column);
+            Double valueFromCalculator = calculator.getUserData().get(age);
+            if (valueFromCalculator == null) {
+                if (valueFromTable > 0)
+                    calculator.set(age, valueFromTable);
+            } else {
+                if (valueFromTable > 0 && valueFromCalculator.compareTo(valueFromTable) != 0) {
+                    calculator.set(age, valueFromTable);
+                } else if (valueFromTable == 0) {
+                    calculator.remove(age);
+                }
+            }
         }
     }
 }

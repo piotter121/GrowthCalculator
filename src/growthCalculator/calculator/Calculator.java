@@ -4,7 +4,12 @@ import growthCalculator.calculator.growthCharts.BoysHeightGrowthChart;
 import growthCalculator.calculator.growthCharts.GrowthChart;
 import growthCalculator.exceptions.CalculationException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Observable;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -12,8 +17,8 @@ import java.util.stream.Collectors;
  * Created by Piotrek on 22-12-2015.
  */
 public class Calculator extends Observable{
-    private TreeMap<Integer, Double> userData;
-    private TreeMap<Integer, Double> result;
+    private SortedMap<Integer, Double> userData;
+    private SortedMap<Integer, Double> result;
     private GrowthChart chart;
 
     public Calculator() {
@@ -32,27 +37,22 @@ public class Calculator extends Observable{
         return chart;
     }
 
-    public TreeMap<Integer, Double> getUserData() {
+    public SortedMap<Integer, Double> getUserData() {
         return userData;
     }
 
-    public TreeMap<Integer, Double> getCalculationResult() {
+    public SortedMap<Integer, Double> getCalculationResult() {
         return result;
     }
 
     public boolean hasData() {
-        return !userData.isEmpty();
+        return !userData.isEmpty() || !result.isEmpty();
     }
 
     public void set(int age, double value) throws IllegalArgumentException {
-        if (!result.isEmpty()) cleanResult();
         if (age < 1) throw new IllegalArgumentException("Zbyt niski wiek - " + age);
         if (age > 18) throw new IllegalArgumentException("Zbyt wysoki wiek - " + age);
-        if (value < 0) throw new IllegalArgumentException("Ujemna wartość " + value);
-        if (value == 0) {
-            remove(age);
-            return;
-        }
+        if (value <= 0) throw new IllegalArgumentException("Niedodatnia wartość " + value);
 
         userData.put(age, value);
         ArrayList<Double> values = new ArrayList<>(userData.values());
@@ -62,13 +62,6 @@ public class Calculator extends Observable{
                 throw new IllegalArgumentException("Wartości wprowadzone są niepoprawne");
             }
 
-        setChanged();
-        notifyObservers();
-    }
-
-    private void cleanResult() {
-        result.clear();
-        setChanged();
         notifyObservers();
     }
 
@@ -85,17 +78,18 @@ public class Calculator extends Observable{
             }
             int average = (int) Math.round(((double) matchedPercentiles) / ((double) counter));
             int startPoint = ages[ages.length - 1];
-            result.put(startPoint, userData.get(startPoint));
 
             if (average < 3 || average > 97)
                 throw new CalculationException("Rozwój dziecka nie mieści się w granicach między 3 a 97 centylem!");
             for (int i = ++startPoint; i < (startPoint + 5) && i < 19; i++) {
-                result.put(i, findValue(i, average));
+                setResult(i, findValue(i, average));
             }
-
-            setChanged();
-            notifyObservers();
         }
+    }
+
+    private void setResult(int age, double val) {
+        result.put(age, val);
+        notifyObservers();
     }
 
     private double findValue(int age, int average) {
@@ -120,9 +114,16 @@ public class Calculator extends Observable{
     }
 
     public void remove(int age) {
-        userData.remove(age);
-        result.remove(age);
-        setChanged();
+        if (userData.containsKey(age))
+            userData.remove(age);
+        if (result.containsKey(age))
+            result.remove(age);
         notifyObservers();
+    }
+
+    @Override
+    public void notifyObservers() {
+        setChanged();
+        super.notifyObservers();
     }
 }

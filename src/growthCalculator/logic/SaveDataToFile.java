@@ -11,6 +11,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.SortedMap;
 
 import static javax.swing.JFileChooser.APPROVE_OPTION;
 import static javax.swing.JFileChooser.CANCEL_OPTION;
@@ -22,32 +23,32 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  * Created by Piotrek on 26-12-2015.
  */
 public class SaveDataToFile implements ActionListener {
-    private Map<Integer, Double> dataToSave;
+    private SortedMap<Integer, Double> dataToSave;
 
-    public SaveDataToFile(Calculator calculator) {
-        dataToSave = calculator.getCalculationResult();
+    public SaveDataToFile(SortedMap<Integer, Double> data) {
+        dataToSave = data;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (dataToSave.isEmpty()) return;
-
-        JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Pliki tekstowe", "txt");
-        chooser.setFileFilter(filter);
-        chooser.setDialogTitle("Zapisz do pliku");
-        chooser.setApproveButtonText("Zapisz");
-        int returnVal = chooser.showSaveDialog(null);
-        switch (returnVal) {
-            case APPROVE_OPTION:
-                saveToFile(chooser.getSelectedFile());
-                break;
-            case CANCEL_OPTION:
-                return;
-            case ERROR_OPTION:
-                JOptionPane.showMessageDialog(null, "Nastąpił nieoczekiwany błąd zapisu", "Błąd",
-                        ERROR_MESSAGE);
-                break;
+        if (!dataToSave.isEmpty()) {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Pliki tekstowe", "txt");
+            chooser.setFileFilter(filter);
+            chooser.setDialogTitle("Zapisz do pliku");
+            chooser.setApproveButtonText("Zapisz");
+            int returnVal = chooser.showSaveDialog(null);
+            switch (returnVal) {
+                case APPROVE_OPTION:
+                    saveToFile(chooser.getSelectedFile());
+                    break;
+                case CANCEL_OPTION:
+                    return;
+                case ERROR_OPTION:
+                    JOptionPane.showMessageDialog(null, "Nastąpił nieoczekiwany błąd zapisu", "Błąd",
+                            ERROR_MESSAGE);
+                    break;
+            }
         }
     }
 

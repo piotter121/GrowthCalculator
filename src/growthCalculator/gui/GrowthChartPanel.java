@@ -1,4 +1,4 @@
-package growthCalculator.gui.mainView;
+package growthCalculator.gui;
 
 import growthCalculator.calculator.Calculator;
 import growthCalculator.calculator.growthCharts.GrowthChart;
@@ -62,7 +62,7 @@ public class GrowthChartPanel extends JPanel implements Observer {
 
         if (calculator.hasData()) {
             TreeMap<Integer, Double> data = new TreeMap<>(calculator.getUserData());
-            data.putAll(calculator.getCalculationResult());
+            data.putAll(new TreeMap<>(calculator.getCalculationResult()));
             refresh(calculator.getGrowthChart(), data);
         } else
             refresh(calculator.getGrowthChart(), null);
