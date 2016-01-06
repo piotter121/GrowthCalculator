@@ -8,7 +8,7 @@ import growthCalculator.calculator.growthCharts.GrowthChart;
  * GrowthCalculator
  * Created by Piotrek on 22-11-2015.
  */
-public class HeightGrowthChartsFactory implements GrowthChartsFactory {
+public class HeightGrowthChartsFactory extends GrowthChartsFactory {
 
     @Override
     public GrowthChart returnBoysGrowthChart() {

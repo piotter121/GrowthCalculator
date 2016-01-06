@@ -41,7 +41,7 @@ public class MainFrame extends JFrame {
         JPanel rightPanel = new JPanel();
 
         // Panel przechowujący przyciski
-        JPanel buttonsPanel = new JPanel(new FlowLayout());
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         // Przycisk rozpoczynający obliczanie
         JButton calculateButton = new JButton(CALCULATE_BUTTON_NAME);
@@ -62,7 +62,7 @@ public class MainFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
 
         // Ustawienie panelu opcji
-        JPanel optionsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel optionsPanel = new OptionsPanel(calculator);
 
         // Ustawienie obserwatorów
         calculator.addObserver(chartPanel);
@@ -106,6 +106,7 @@ public class MainFrame extends JFrame {
         contentPane.add(chartPanel);
         rightPanel.add(scrollPane);
         rightPanel.add(buttonsPanel);
+        rightPanel.add(optionsPanel);
         contentPane.add(rightPanel);
     }
 
