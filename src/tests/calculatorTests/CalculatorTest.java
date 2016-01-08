@@ -76,4 +76,9 @@ public class CalculatorTest {
     public void settingMinimumValue() throws Exception {
         calculator.set(10, 0.01);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void settingNonPositiveValue() throws Exception {
+        calculator.set(10, -1.0);
+    }
 }
