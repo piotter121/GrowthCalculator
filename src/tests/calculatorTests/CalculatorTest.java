@@ -71,4 +71,9 @@ public class CalculatorTest {
     public void settingToHighAgeWithValue() throws Exception {
         calculator.set(19, 200);
     }
+
+    @Test
+    public void settingMinimumValue() throws Exception {
+        calculator.set(10, 0.01);
+    }
 }
