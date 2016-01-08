@@ -3,6 +3,7 @@ package growthCalculator.calculator;
 import growthCalculator.calculator.growthCharts.BoysHeightGrowthChart;
 import growthCalculator.calculator.growthCharts.GrowthChart;
 import growthCalculator.exceptions.CalculationException;
+import growthCalculator.exceptions.NonGrowingDataOrderException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,10 +50,10 @@ public class Calculator extends Observable{
         return !userData.isEmpty() || !result.isEmpty();
     }
 
-    public void set(int age, double value) throws IllegalArgumentException {
+    public void set(int age, double value) throws IllegalArgumentException, NonGrowingDataOrderException {
         if (age < 1) throw new IllegalArgumentException("Zbyt niski wiek - " + age);
         if (age > 18) throw new IllegalArgumentException("Zbyt wysoki wiek - " + age);
-        if (value <= 0) throw new IllegalArgumentException("Niedodatnia wartość " + value);
+        if (value <= 0) throw new NonGrowingDataOrderException("Niedodatnia wartość " + value);
 
         userData.put(age, value);
         ArrayList<Double> values = new ArrayList<>(userData.values());
