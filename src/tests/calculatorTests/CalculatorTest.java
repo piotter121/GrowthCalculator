@@ -1,6 +1,7 @@
 package tests.calculatorTests;
 
 import growthCalculator.calculator.Calculator;
+import growthCalculator.exceptions.NonGrowingDataOrderException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,32 +54,38 @@ public class CalculatorTest {
     }
 
     @Test
-    public void settingMinimumAgeWithValue() throws Exception {
+    public void settingMinimumAgeWithValueTest() throws Exception {
         calculator.set(1, 100);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void settingToSmallAgeWithValue() throws Exception {
+    public void settingToSmallAgeWithValueTest() throws Exception {
         calculator.set(0, 100);
     }
 
     @Test
-    public void settingMaximumAgeWithValue() throws Exception {
+    public void settingMaximumAgeWithValueTest() throws Exception {
         calculator.set(18, 190);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void settingToHighAgeWithValue() throws Exception {
+    public void settingToHighAgeWithValueTest() throws Exception {
         calculator.set(19, 200);
     }
 
     @Test
-    public void settingMinimumValue() throws Exception {
+    public void settingMinimumValueTest() throws Exception {
         calculator.set(10, 0.01);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void settingNonPositiveValue() throws Exception {
+    public void settingNonPositiveValueTest() throws Exception {
         calculator.set(10, -1.0);
+    }
+
+    @Test(expected = NonGrowingDataOrderException.class)
+    public void settingDataInNonGrowingOrderTest() throws Exception {
+        calculator.set(8, 130);
+        calculator.set(9, 129);
     }
 }

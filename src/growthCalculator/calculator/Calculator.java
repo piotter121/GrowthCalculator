@@ -5,12 +5,7 @@ import growthCalculator.calculator.growthCharts.GrowthChart;
 import growthCalculator.exceptions.CalculationException;
 import growthCalculator.exceptions.NonGrowingDataOrderException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Observable;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -53,14 +48,14 @@ public class Calculator extends Observable{
     public void set(int age, double value) throws IllegalArgumentException, NonGrowingDataOrderException {
         if (age < 1) throw new IllegalArgumentException("Zbyt niski wiek - " + age);
         if (age > 18) throw new IllegalArgumentException("Zbyt wysoki wiek - " + age);
-        if (value <= 0) throw new NonGrowingDataOrderException("Niedodatnia wartość " + value);
+        if (value <= 0) throw new IllegalArgumentException("Niedodatnia wartość " + value);
 
         userData.put(age, value);
         ArrayList<Double> values = new ArrayList<>(userData.values());
         for (int i = 0; i < (values.size() - 1); i++)
             if (values.get(i) > values.get(i + 1)) {
                 userData.remove(age);
-                throw new IllegalArgumentException("Wartości wprowadzone są niepoprawne");
+                throw new NonGrowingDataOrderException("Wartości wprowadzone są niepoprawne");
             }
 
         notifyObservers();
@@ -95,7 +90,7 @@ public class Calculator extends Observable{
 
     private double findValue(int age, int average) {
         List<Integer> percentiles = chart.getPercentilesList();
-        ArrayList<Integer> abs = new ArrayList<>(percentiles.size());
+        List<Integer> abs = new ArrayList<>(percentiles.size());
         abs.addAll(percentiles.stream().map(percentile -> Math.abs(percentile - average)).collect(Collectors.toList()));
         int index;
         int matched = percentiles.get((index = abs.indexOf(Collections.min(abs))));
