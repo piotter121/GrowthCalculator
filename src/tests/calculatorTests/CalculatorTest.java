@@ -88,4 +88,12 @@ public class CalculatorTest {
         calculator.set(8, 130);
         calculator.set(9, 129);
     }
+
+    @Test
+    public void removingDataTest1() throws Exception {
+        calculator.set(10, 120);
+        calculator.remove(10);
+        assertFalse(calculator.hasData());
+        assertFalse(calculator.getUserData().containsKey(10));
+    }
 }
