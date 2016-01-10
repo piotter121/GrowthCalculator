@@ -2,6 +2,7 @@ package growthCalculator.logic;
 
 import growthCalculator.calculator.Calculator;
 import growthCalculator.exceptions.CalculationException;
+import growthCalculator.exceptions.ExceptionsHandler;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,9 +28,9 @@ public class CalculateController implements ActionListener {
         try {
             calculator.calculate();
         } catch (CalculationException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Błąd", JOptionPane.ERROR_MESSAGE);
             table.setEnabled(true);
             ((JButton)e.getSource()).setEnabled(true);
+            ExceptionsHandler.showErrorMessageDialog(ex);
         }
     }
 }

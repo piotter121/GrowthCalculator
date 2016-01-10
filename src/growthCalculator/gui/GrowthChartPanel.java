@@ -7,8 +7,11 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.ShapeUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +28,7 @@ public class GrowthChartPanel extends JPanel implements Observer {
         refresh(chart, null);
     }
 
-    private void refresh(GrowthChart chart, Map<Integer, Double> data) {
+    private void refresh(GrowthChart chart, SortedMap<Integer, Double> data) {
         XYSeriesCollection seriesCollection = new XYSeriesCollection();
         for (Integer percentile: chart.getPercentilesList()) {
             XYSeries series = new XYSeries(percentile + " centyl");
@@ -40,11 +43,25 @@ public class GrowthChartPanel extends JPanel implements Observer {
         JFreeChart freeChart = ChartFactory.createXYLineChart("Wykres", "wiek", "wartość", seriesCollection,
                 PlotOrientation.VERTICAL, true, true, false);
 
-        ((NumberAxis)freeChart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
-        freeChart.getPlot().setBackgroundPaint(new Color(114, 115, 0, 127));
+        XYPlot plot = freeChart.getXYPlot();
+        ((NumberAxis) plot.getRangeAxis()).setAutoRangeIncludesZero(false);
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        renderer.setBaseShapesVisible(false);
+        renderer.setSeriesPaint(0, Color.red);
+        renderer.setSeriesPaint(1, Color.blue);
+        renderer.setSeriesPaint(2, Color.CYAN);
+        renderer.setSeriesPaint(3, Color.green);
+        renderer.setSeriesPaint(4, Color.CYAN);
+        renderer.setSeriesPaint(5, Color.blue);
+        renderer.setSeriesPaint(6, Color.red);
+        if (data != null && !data.isEmpty()) {
+            Shape cross = ShapeUtilities.createRegularCross(3, 1);
+            renderer.setSeriesShapesVisible(7, true);
+            renderer.setSeriesShape(7, cross);
+        }
+        plot.setRenderer(renderer);
 
         ChartPanel chartPanel = new ChartPanel(freeChart);
-        chartPanel.setPreferredSize(new Dimension(700,700));
 
         removeAll();
         add(chartPanel, BorderLayout.CENTER);
@@ -53,26 +70,21 @@ public class GrowthChartPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Calculator calculator;
-        try {
-            calculator = (Calculator) o;
-        } catch (ClassCastException e) {
-            return;
+        if (o instanceof Calculator) {
+            Calculator calculator = (Calculator) o;
+            if (calculator.hasData()) {
+                SortedMap<Integer, Double> data = new TreeMap<>(calculator.getUserData());
+                data.putAll(new TreeMap<>(calculator.getCalculationResult()));
+                refresh(calculator.getGrowthChart(), data);
+            } else
+                refresh(calculator.getGrowthChart(), null);
         }
-
-        if (calculator.hasData()) {
-            TreeMap<Integer, Double> data = new TreeMap<>(calculator.getUserData());
-            data.putAll(new TreeMap<>(calculator.getCalculationResult()));
-            refresh(calculator.getGrowthChart(), data);
-        } else
-            refresh(calculator.getGrowthChart(), null);
     }
 
-    private XYSeries createSeries(Map<Integer, Double> data) {
+    private XYSeries createSeries(SortedMap<Integer, Double> data) {
         XYSeries series = new XYSeries("dane dziecka");
-        Integer[] ages = (data.keySet()).toArray(new Integer[data.keySet().size()]);
-        for (Integer age: ages)
-            series.add(age, data.get(age));
+        for (Map.Entry<Integer, Double> entry: data.entrySet())
+            series.add(entry.getKey(), entry.getValue());
         return series;
     }
 }

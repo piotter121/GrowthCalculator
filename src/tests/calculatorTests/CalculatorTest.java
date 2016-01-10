@@ -30,9 +30,8 @@ public class CalculatorTest {
         SortedMap<Integer, Double> result = calculator.getCalculationResult();
         Integer[] ages = new Integer[] {10, 11, 12, 13, 14};
         Double[] values = new Double[] {143.72, 148.72, 155.4, 163.08, 170.08};
-        for (int i = 0; i < ages.length; i++) {
+        for (int i = 0; i < ages.length; i++)
             assertEquals(values[i], result.get(ages[i]), delta);
-        }
     }
 
     @Test
@@ -90,7 +89,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void removingDataTest1() throws Exception {
+    public void removingDataTest() throws Exception {
         calculator.set(10, 120);
         calculator.remove(10);
         assertFalse(calculator.hasData());

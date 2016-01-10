@@ -51,7 +51,7 @@ public class DataTableChangeListener implements TableModelListener {
         try {
             calculator.set(age, val);
         } catch (IllegalArgumentException | NonGrowingDataOrderException e1) {
-            ExceptionsHandler.showErrorMessageDialog(e1.getMessage());
+            ExceptionsHandler.showErrorMessageDialog(e1);
             model.setValueAt(0, row, column);
         }
     }
