@@ -7,8 +7,7 @@ import growthCalculator.logic.ReadDataFromFile;
 import growthCalculator.logic.SaveDataToFile;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 
 /**
  * GrowthCalculator
@@ -102,6 +101,7 @@ public class MainFrame extends JFrame {
         buttonsPanel.add(calculateButton);
         buttonsPanel.add(saveButton);
         buttonsPanel.add(clearDataButton);
+        buttonsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         contentPane.add(chartPanel);
         rightPanel.add(scrollPane);

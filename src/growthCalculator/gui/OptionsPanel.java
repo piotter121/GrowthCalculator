@@ -4,12 +4,9 @@ import growthCalculator.calculator.Calculator;
 import growthCalculator.calculator.growthCharts.factories.GrowthChartsFactory;
 
 import javax.swing.*;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.Collections;
 
 /**
  * GrowthCalculator
@@ -28,6 +25,8 @@ public class OptionsPanel extends JPanel {
 
     public OptionsPanel(Calculator calculator) {
         super();
+
+        JLabel label = new JLabel("Opcje");
 
         JPanel chooseSexPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ButtonGroup chooseSexGroup = new ButtonGroup();
@@ -92,7 +91,9 @@ public class OptionsPanel extends JPanel {
         chooseMetricPanel.add(heightRadioButton);
         chooseMetricPanel.add(weightRadioButton);
 
+        add(label);
         add(chooseSexPanel);
         add(chooseMetricPanel);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 }
