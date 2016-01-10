@@ -58,6 +58,7 @@ public class GrowthChartPanel extends JPanel implements Observer {
             Shape cross = ShapeUtilities.createRegularCross(3, 1);
             renderer.setSeriesShapesVisible(7, true);
             renderer.setSeriesShape(7, cross);
+            renderer.setSeriesPaint(7, Color.BLACK);
         }
         plot.setRenderer(renderer);
 
