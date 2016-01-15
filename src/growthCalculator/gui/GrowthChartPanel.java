@@ -1,6 +1,6 @@
 package growthCalculator.gui;
 
-import growthCalculator.calculator.Calculator;
+import growthCalculator.calculator.GrowthCalculator;
 import growthCalculator.calculator.growthCharts.GrowthChart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -71,8 +71,8 @@ public class GrowthChartPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof Calculator) {
-            Calculator calculator = (Calculator) o;
+        if (o instanceof GrowthCalculator) {
+            GrowthCalculator calculator = (GrowthCalculator) o;
             if (calculator.hasData()) {
                 SortedMap<Integer, Double> data = new TreeMap<>(calculator.getUserData());
                 data.putAll(new TreeMap<>(calculator.getCalculationResult()));

@@ -1,6 +1,6 @@
 package growthCalculator.gui;
 
-import growthCalculator.calculator.Calculator;
+import growthCalculator.calculator.GrowthCalculator;
 import growthCalculator.logic.CalculateController;
 import growthCalculator.logic.DataTableChangeListener;
 import growthCalculator.logic.ReadDataFromFile;
@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
 
         // Model
-        Calculator calculator = new Calculator();
+        GrowthCalculator calculator = new GrowthCalculator();
 
         // Panel przechowujący całą zawartość
         JPanel contentPane = new JPanel();

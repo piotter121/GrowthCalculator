@@ -1,7 +1,7 @@
 package tests.calculatorTests;
 
-import growthCalculator.calculator.Calculator;
-import growthCalculator.exceptions.NonGrowingDataOrderException;
+import growthCalculator.calculator.GrowthCalculator;
+import growthCalculator.exceptions.DecreasingDataOrderException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
  * GrowthCalculator
  * Created by Piotrek on 27-12-2015.
  */
-public class CalculatorTest {
-    private Calculator calculator;
+public class GrowthCalculatorTest {
+    private GrowthCalculator calculator;
     private double delta = 1.0E-03;
 
     @Before
     public void setUp() throws Exception {
-        calculator = new Calculator();
+        calculator = new GrowthCalculator();
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CalculatorTest {
         calculator.set(10, -1.0);
     }
 
-    @Test(expected = NonGrowingDataOrderException.class)
+    @Test(expected = DecreasingDataOrderException.class)
     public void settingDataInNonGrowingOrderTest() throws Exception {
         calculator.set(8, 130);
         calculator.set(9, 129);

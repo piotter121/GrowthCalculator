@@ -1,8 +1,8 @@
 package growthCalculator.logic;
 
-import growthCalculator.calculator.Calculator;
+import growthCalculator.calculator.GrowthCalculator;
+import growthCalculator.exceptions.DecreasingDataOrderException;
 import growthCalculator.exceptions.ExceptionsHandler;
-import growthCalculator.exceptions.NonGrowingDataOrderException;
 import growthCalculator.gui.DataTableModel;
 
 import javax.swing.event.TableModelEvent;
@@ -15,12 +15,12 @@ import javax.swing.table.TableModel;
  */
 public class DataTableChangeListener implements TableModelListener {
 
-    private Calculator calculator;
+    private GrowthCalculator calculator;
     private TableModel model;
     private int row;
     private int column;
 
-    public DataTableChangeListener(Calculator calculator) {
+    public DataTableChangeListener(GrowthCalculator calculator) {
         this.calculator = calculator;
     }
 
@@ -50,7 +50,7 @@ public class DataTableChangeListener implements TableModelListener {
     private void setValueToCalculator(int age, double val) {
         try {
             calculator.set(age, val);
-        } catch (IllegalArgumentException | NonGrowingDataOrderException e1) {
+        } catch (IllegalArgumentException | DecreasingDataOrderException e1) {
             ExceptionsHandler.showErrorMessageDialog(e1);
             model.setValueAt(0, row, column);
         }

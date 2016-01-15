@@ -1,6 +1,6 @@
 package growthCalculator.logic;
 
-import growthCalculator.calculator.Calculator;
+import growthCalculator.calculator.GrowthCalculator;
 import growthCalculator.exceptions.CalculationException;
 import growthCalculator.exceptions.ExceptionsHandler;
 
@@ -13,10 +13,10 @@ import java.awt.event.ActionListener;
  * Created by Piotrek on 04-01-2016.
  */
 public class CalculateController implements ActionListener {
-    private Calculator calculator;
+    private GrowthCalculator calculator;
     private JTable table;
 
-    public CalculateController(Calculator calculator, JTable table) {
+    public CalculateController(GrowthCalculator calculator, JTable table) {
         this.table = table;
         this.calculator = calculator;
     }

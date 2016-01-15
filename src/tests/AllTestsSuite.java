@@ -2,7 +2,7 @@ package tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import tests.calculatorTests.CalculatorTest;
+import tests.calculatorTests.GrowthCalculatorTest;
 
 /**
  * GrowthCalculator
@@ -11,7 +11,7 @@ import tests.calculatorTests.CalculatorTest;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        CalculatorTest.class
+        GrowthCalculatorTest.class
 })
 
 public class AllTestsSuite {

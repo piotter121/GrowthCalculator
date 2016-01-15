@@ -1,11 +1,7 @@
 package growthCalculator.gui;
 
-import growthCalculator.calculator.Calculator;
-import growthCalculator.calculator.growthCharts.BoysHeightGrowthChart;
-import growthCalculator.calculator.growthCharts.BoysWeightGrowthChart;
-import growthCalculator.calculator.growthCharts.GirlsHeightGrowthChart;
-import growthCalculator.calculator.growthCharts.GirlsWeightGrowthChart;
-import growthCalculator.calculator.growthCharts.GrowthChart;
+import growthCalculator.calculator.GrowthCalculator;
+import growthCalculator.calculator.growthCharts.*;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
@@ -66,8 +62,8 @@ public class DataTableModel extends AbstractTableModel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof Calculator) {
-            Calculator calculator = (Calculator) o;
+        if (o instanceof GrowthCalculator) {
+            GrowthCalculator calculator = (GrowthCalculator) o;
             GrowthChart chart = calculator.getGrowthChart();
             if (chart instanceof BoysHeightGrowthChart || chart instanceof GirlsHeightGrowthChart)
                 colNames[1] = "Wzrost";

@@ -1,6 +1,6 @@
 package growthCalculator.gui;
 
-import growthCalculator.calculator.Calculator;
+import growthCalculator.calculator.GrowthCalculator;
 import growthCalculator.calculator.growthCharts.factories.GrowthChartsFactory;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class OptionsPanel extends JPanel {
     private JRadioButton boyRadioButton = new JRadioButton(BOY, true);
     private JRadioButton girlRadioButton = new JRadioButton(GIRL);
 
-    public OptionsPanel(Calculator calculator) {
+    public OptionsPanel(GrowthCalculator calculator) {
         super();
 
         JLabel label = new JLabel("Opcje");

@@ -1,7 +1,5 @@
 package growthCalculator.logic;
 
-import growthCalculator.calculator.Calculator;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
@@ -13,9 +11,7 @@ import java.nio.file.Files;
 import java.util.Map;
 import java.util.SortedMap;
 
-import static javax.swing.JFileChooser.APPROVE_OPTION;
-import static javax.swing.JFileChooser.CANCEL_OPTION;
-import static javax.swing.JFileChooser.ERROR_OPTION;
+import static javax.swing.JFileChooser.*;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /**
