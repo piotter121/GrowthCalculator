@@ -21,7 +21,7 @@ public abstract class GrowthChart {
     /**
      * Metoda zwracająca centyl do którego pasuje zadana wartość i wiek
      */
-    public int matchToPercentile(Integer age, double value) {
+    public int matchToPercentile(int age, double value) {
         List<Integer> percentiles = getPercentilesList();
         ListIterator<Integer> percentilesIterator = percentiles.listIterator();
         int matchedPercentile = 0;
