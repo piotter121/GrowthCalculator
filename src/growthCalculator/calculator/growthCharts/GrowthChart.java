@@ -1,6 +1,5 @@
 package growthCalculator.calculator.growthCharts;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -9,36 +8,38 @@ import java.util.ListIterator;
  * Created by Piotrek on 15-11-2015.
  */
 public abstract class GrowthChart {
+    /**
+     * Metoda zwracająca wartość z siatki centylowej dla zadanego wieku i centyla
+     */
     public abstract double getValueAt(int age, int percentile);
 
+    /**
+     * Metoda zwracająca obiekt List z centylami których dane znajdą się na siatce centylowej
+     */
     public abstract List<Integer> getPercentilesList();
 
+    /**
+     * Metoda zwracająca centyl do którego pasuje zadana wartość i wiek
+     */
     public int matchToPercentile(Integer age, double value) {
         List<Integer> percentiles = getPercentilesList();
-        ArrayList<Double> abs = new ArrayList<>(percentiles.size());
-        ListIterator<Integer> iterator = percentiles.listIterator();
-        int percentile = 0;
+        ListIterator<Integer> percentilesIterator = percentiles.listIterator();
+        int matchedPercentile = 0;
 
-        while (iterator.hasNext()) {
-            int lPer = iterator.next();
-            if (!iterator.hasNext())
-                break;
-            int pPer = iterator.next();
-            iterator.previous();
-            double down, up;
-
-            if ((down = getValueAt(age, lPer)) <= value && (up = getValueAt(age, pPer)) >= value) {
-                percentile = lPer + findPercentile(value, down, up, pPer - lPer);
+        while (percentilesIterator.hasNext()) {
+            int lowerPercentile = percentilesIterator.next();
+            if (!percentilesIterator.hasNext()) break;
+            int upperPercentile = percentilesIterator.next();
+            percentilesIterator.previous();
+            double lowerValue, upperValue;
+            if ((lowerValue = getValueAt(age, lowerPercentile)) <= value
+                    && (upperValue = getValueAt(age, upperPercentile)) >= value) {
+                matchedPercentile = lowerPercentile + (int) Math.round((value - lowerValue)
+                        / ((upperValue - lowerValue) / (upperPercentile - lowerPercentile)));
                 break;
             }
         }
 
-        return percentile;
-    }
-
-    private int findPercentile(double value, double down, double up, int range) {
-        double scale = (up - down) / range;
-        double diff = value - down;
-        return (int) Math.round(diff / scale);
+        return matchedPercentile;
     }
 }

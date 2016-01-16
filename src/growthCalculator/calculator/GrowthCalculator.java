@@ -10,56 +10,57 @@ import java.util.*;
 /**
  * GrowthCalculator
  * Created by Piotrek on 22-12-2015.
+ *
  * Główna klasa odpowiedzialna za przyjmowanie danych i obliczenie przyszłej wagi/wzrostu dla dziecka.
  * Rozszerza ona klasę Observable, aby móc powiadamiać graficzny interfejs o zmianach, które zaszły w niej.
  */
 public class GrowthCalculator extends Observable{
-    /* zmienna do przechowywania danych wprowadzonych przez użytkownika */
+    /** zmienna do przechowywania danych wprowadzonych przez użytkownika */
     private SortedMap<Integer, Double> userData;
 
-    /* w tej zmiennej przechowywane są oszacowane przyszłe waga lub wzrost */
+    /** w tej zmiennej przechowywane są oszacowane przyszłe waga lub wzrost */
     private SortedMap<Integer, Double> result;
 
-    /* instancja aktualnie wybranej siatki centylowej */
+    /** instancja aktualnie wybranej siatki centylowej */
     private GrowthChart chart;
 
-    /* konstruktor klasy, nie przyjmujący argumentów */
+    /** konstruktor klasy, nie przyjmujący argumentów */
     public GrowthCalculator() {
         userData = new TreeMap<>(Integer::compareTo);
         result = new TreeMap<>(Integer::compareTo);
         chart = new BoysHeightGrowthChart();
     }
 
-    /* Publiczna metoda pozwalająca zmienić aktualną siatkę centylową i w ten sposób zmienić opcje obiliczeń */
+    /** Publiczna metoda pozwalająca zmienić aktualną siatkę centylową i w ten sposób zmienić opcje obliczeń */
     public void setGrowthChart(GrowthChart chart) {
         this.chart = chart;
 
-        // Powiadomienie obserwatorów o zmienie opcji
+        /** Powiadomienie obserwatorów o zmianie opcji */
         notifyObservers();
     }
 
-    /* Publiczna metoda zwracająca aktualną siatkę centylową */
+    /** Publiczna metoda zwracająca aktualną siatkę centylową */
     public GrowthChart getGrowthChart() {
         return chart;
     }
 
-    /* Publiczna metoda zwracająca dane wprowadzone przez użytkownika */
+    /** Publiczna metoda zwracająca dane wprowadzone przez użytkownika */
     public SortedMap<Integer, Double> getUserData() {
         return userData;
     }
 
-    /* Publiczna metoda zwracająca dane oszacowane przez kalkulator */
+    /** Publiczna metoda zwracająca dane oszacowane przez kalkulator */
     public SortedMap<Integer, Double> getCalculationResult() {
         return result;
     }
 
-    /* Publiczna metoda zwracająca prawdę jeśli w kalkulatorze znajdują się jakieś dane, np. do wyświetlenia na wykresie,
+    /** Publiczna metoda zwracająca prawdę jeśli w kalkulatorze znajdują się jakieś dane, np. do wyświetlenia na wykresie,
     * lub fałsz, gdy kalkulator jest pusty */
     public boolean hasData() {
         return !userData.isEmpty() || !result.isEmpty();
     }
 
-    /* Wstawia do kalkulatora wiek wraz z przypisaną do niego wartością, którą może być wzrost lub waga.
+    /** Wstawia do kalkulatora wiek wraz z przypisaną do niego wartością, którą może być wzrost lub waga.
      * Wyrzuca wyjątek IllegalArgumentException, gdy wiek nie mieści się w przedziale od 1 do 18 lat, lub gdy
      * wprowadzana wartość jest niedodatnia.
      * Wyrzuca wyjątek DecreasingDataOrderException, gdy wprowadzane są malejące wobec już wprowadzonych. */
@@ -77,36 +78,36 @@ public class GrowthCalculator extends Observable{
             }
         }
 
-        // Powiadomienie obserwatorów o zmianach
+        /** Powiadomienie obserwatorów o zmianach */
         notifyObservers();
     }
 
-    /* Oblicza przyszłą wagę lub wzrost dla dziecka.
+    /** Oblicza przyszłą wagę lub wzrost dla dziecka.
      * Wyrzuca wyjątek CalculationException, gdy wprowadzone dane nie mieszczą się między 3 a 97 centylem. */
     public void calculate() throws CalculationException {
         if (!userData.isEmpty() && result.isEmpty()) {
             List<Integer> matchedPercentiles = new ArrayList<>(userData.size());
 
-            // Sprawdzanie pomiędzy jakimi centylami znajdują się wpisane wartości
+            /** Sprawdzanie pomiędzy jakimi centylami znajdują się wpisane wartości */
             for (Integer age : userData.keySet()) matchedPercentiles.add(chart.matchToPercentile(age, userData.get(age)));
 
-            // Ustawienie wag
+            /** Ustawienie wag */
             List<Integer> wages = new ArrayList<>(matchedPercentiles.size());
             for (int i = 1; i <= matchedPercentiles.size(); i++) wages.add(i);
 
-            // Obliczenie średniego ważonego centyla dla wprowadzonych danych
+            /** Obliczenie średniego ważonego centyla dla wprowadzonych danych */
             int average = calculateWeightedAverage(matchedPercentiles, wages);
 
             if (average < 3 || average > 97)
                 throw new CalculationException("Rozwój dziecka nie mieści się w granicach między 3 a 97 centylem!");
 
-            // Obliczenie 5 wartości na przód
-            int startPoint = userData.lastKey() + 1;
-            for (int i = startPoint; i < (startPoint + 5) && i < 19; i++) setResult(i, findValue(i, average));
+            /** Obliczenie 5 wartości na przód */
+            for (int i = userData.lastKey() + 1; i < (userData.lastKey() + 6) && i < 19; i++)
+                setResult(i, findValue(i, average));
         }
     }
 
-    /* Pomocnicza funkcja licząca średnią ważoną na podstawie podanej listy wartości i listy ich wag */
+    /** Pomocnicza funkcja licząca średnią ważoną na podstawie podanej listy wartości i listy ich wag */
     private int calculateWeightedAverage(List<Integer> values, List<Integer> wages) {
         double sumOfValuesMultipliedByWages = 0;
         double sumOfWages = 0;
@@ -124,13 +125,13 @@ public class GrowthCalculator extends Observable{
         notifyObservers();
     }
 
-    /* Pomocnicza funkcja odczytująca wartość z siatki centylowej dla zadanego wieku i centyla */
+    /** Pomocnicza funkcja odczytująca wartość z siatki centylowej dla zadanego wieku i centyla */
     private double findValue(int age, int anotherPercentile) {
-        // Lista percentyli znajdujących się już w siatce centylowej
+        /** Lista centyli znajdujących się już w siatce centylowej */
         List<Integer> percentiles = chart.getPercentilesList();
 
-        /* Szukanie, który z znajdujących się już w siatce centylowej centyli znajduje się najbliżej podanego jako
-        argument */
+        /** Szukanie, który z znajdujących się już w siatce centylowej centyli znajduje się najbliżej podanego jako
+        * argument */
         List<Integer> abs = new ArrayList<>(percentiles.size());
         for (Integer percentile: percentiles) abs.add(Math.abs(percentile - anotherPercentile));
         int index;
@@ -145,7 +146,7 @@ public class GrowthCalculator extends Observable{
             lowerPercentile = percentiles.get(index - 1);
         }
 
-        /* Zwracana wartość jest zaokrąglana do dwóch miejsc po przecinku */
+        /** Zwracana wartość jest zaokrąglana do dwóch miejsc po przecinku */
         return (double) Math.round((chart.getValueAt(age, lowerPercentile) + ((chart.getValueAt(age, upperPercentile)
                 - chart.getValueAt(age, lowerPercentile)) / (upperPercentile - lowerPercentile))
                 * (anotherPercentile - lowerPercentile)) * 100.0) / 100.0;
