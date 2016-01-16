@@ -89,7 +89,8 @@ public class GrowthCalculator extends Observable{
             List<Integer> matchedPercentiles = new ArrayList<>(userData.size());
 
             /** Sprawdzanie pomiędzy jakimi centylami znajdują się wpisane wartości */
-            for (Integer age : userData.keySet()) matchedPercentiles.add(chart.matchToPercentile(age, userData.get(age)));
+            for (Integer age : userData.keySet())
+                matchedPercentiles.add(chart.matchToPercentile(age, userData.get(age)));
 
             /** Ustawienie wag */
             List<Integer> wages = new ArrayList<>(matchedPercentiles.size());
