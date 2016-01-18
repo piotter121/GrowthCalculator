@@ -1,10 +1,12 @@
 package growthCalculator.exceptions;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
  * GrowthCalculator
  * Created by Piotrek on 08-01-2016.
+ *
+ * Klasa do obsługi wyjątków w programie
  */
 public class ExceptionsHandler {
     public static void showErrorMessageDialog(Exception exception) {

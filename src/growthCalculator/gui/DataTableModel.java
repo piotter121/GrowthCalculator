@@ -1,10 +1,19 @@
 package growthCalculator.gui;
 
 import growthCalculator.calculator.GrowthCalculator;
-import growthCalculator.calculator.growthCharts.*;
+import growthCalculator.calculator.growthCharts.BoysHeightGrowthChart;
+import growthCalculator.calculator.growthCharts.BoysWeightGrowthChart;
+import growthCalculator.calculator.growthCharts.GirlsHeightGrowthChart;
+import growthCalculator.calculator.growthCharts.GirlsWeightGrowthChart;
+import growthCalculator.calculator.growthCharts.GrowthChart;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.*;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * GrowthCalculator
@@ -81,17 +90,16 @@ public class DataTableModel extends AbstractTableModel implements Observer {
             agesInCalculator.addAll(calculator.getCalculationResult().keySet());
 
             SortedSet<Integer> agesInTable = new TreeSet<>(Integer::compareTo);
-            for (int i = 0; i < getRowCount(); i++)
-                if (((double) getValueAt(i, 1)) != 0)
-                    agesInTable.add(i + 1);
+            for (int i = 0; i < getRowCount(); i++) if (((double) getValueAt(i, 1)) != 0) agesInTable.add(i + 1);
 
             SortedSet<Integer> diff = new TreeSet<>(agesInTable);
             diff.removeAll(agesInCalculator);
 
-            agesInCalculator.stream().filter(age -> calculatorData.get(age) != ((double) getValueAt(age - 1, 1))).forEach(age -> setValueAt(calculatorData.get(age), age - 1, 1));
+            for (Integer age : agesInCalculator)
+                if (calculatorData.get(age) != ((double) getValueAt(age - 1, 1)))
+                    setValueAt(calculatorData.get(age), age - 1, 1);
 
-            for (Integer age: diff)
-                setValueAt(0, age - 1, 1);
+            for (Integer age: diff) setValueAt(0, age - 1, 1);
         }
     }
 

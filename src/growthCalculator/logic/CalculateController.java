@@ -4,7 +4,8 @@ import growthCalculator.calculator.GrowthCalculator;
 import growthCalculator.exceptions.CalculationException;
 import growthCalculator.exceptions.ExceptionsHandler;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,13 +24,14 @@ public class CalculateController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ((JButton)e.getSource()).setEnabled(false);
+        JButton source = (JButton)e.getSource();
+        source.setEnabled(false);
         table.setEnabled(false);
         try {
             calculator.calculate();
         } catch (CalculationException ex) {
             table.setEnabled(true);
-            ((JButton)e.getSource()).setEnabled(true);
+            source.setEnabled(true);
             ExceptionsHandler.showErrorMessageDialog(ex);
         }
     }

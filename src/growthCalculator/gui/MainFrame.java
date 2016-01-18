@@ -6,8 +6,18 @@ import growthCalculator.logic.DataTableChangeListener;
 import growthCalculator.logic.ReadDataFromFile;
 import growthCalculator.logic.SaveDataToFile;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 /**
  * GrowthCalculator
@@ -27,50 +37,47 @@ public class MainFrame extends JFrame {
         setSize(1030,700);
         setLocationRelativeTo(null);
 
-        // Model
+        /** Model */
         GrowthCalculator calculator = new GrowthCalculator();
 
-        // Panel przechowujący całą zawartość
+        /** Panel przechowujący całą zawartość */
         JPanel contentPane = new JPanel();
 
-        // Panel przechowujący wykres siatki centylowej
+        /** Panel przechowujący wykres siatki centylowej */
         GrowthChartPanel chartPanel = new GrowthChartPanel(calculator.getGrowthChart());
 
-        // Panel przechowujący prawą stronę okna
+        /** Panel przechowujący prawą stronę okna */
         JPanel rightPanel = new JPanel();
 
-        // Panel przechowujący przyciski
+        /** Panel przechowujący przyciski */
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        // Przycisk rozpoczynający obliczanie
+        /** Przycisk rozpoczynający obliczanie */
         JButton calculateButton = new JButton(CALCULATE_BUTTON_NAME);
 
-        // Przycisk aktywujący zapisanie do pliku oszacowanych danych
+        /** Przycisk aktywujący zapisanie do pliku oszacowanych danych */
         JButton saveButton = new JButton(SAVE_BUTTON_NAME);
 
-        // Przycisk aktywujący otworzenie pliku w celu wczytania danych z niego
+        /** Przycisk aktywujący otworzenie pliku w celu wczytania danych z niego */
         JButton openFileButton = new JButton(OPEN_FILE_BUTTON_NAME);
 
-        // Przycisk kasujący wszystkie dane
+        /** Przycisk kasujący wszystkie dane */
         JButton clearDataButton = new JButton(CLEAR_DATA_BUTTON_NAME);
 
-        // Ustawienie tabeli danych
+        /** Ustawienie tabeli danych */
         DataTableModel tableModel = new DataTableModel();
         tableModel.addTableModelListener(new DataTableChangeListener(calculator));
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
 
-        // Ustawienie panelu opcji
-        JPanel optionsPanel = new OptionsPanel(calculator);
-
-        // Ustawienie obserwatorów
+        /** Ustawienie obserwatorów */
         calculator.addObserver(chartPanel);
         calculator.addObserver(tableModel);
 
-        // Ustawienie głównego kontenera
+        /** Ustawienie głównego kontenera */
         setContentPane(contentPane);
 
-        // Ustawienie layoutów głównych panelów
+        /** Ustawienie layoutów głównych panelów */
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
@@ -84,7 +91,7 @@ public class MainFrame extends JFrame {
         buttonsPanel.setPreferredSize(new Dimension(300,183));
         buttonsPanel.setMaximumSize(new Dimension(300,200));
 
-        // Ustawienie ActionListenerów dla przycisków
+        /** Ustawienie ActionListenerów dla przycisków */
         openFileButton.addActionListener(new ReadDataFromFile(tableModel));
         calculateButton.addActionListener(e -> openFileButton.setEnabled(false));
         calculateButton.addActionListener(new CalculateController(calculator, table));
@@ -96,7 +103,7 @@ public class MainFrame extends JFrame {
             table.setEnabled(true);
         });
 
-        // Ułożenie przycisków
+        /** Ułożenie przycisków */
         buttonsPanel.add(openFileButton);
         buttonsPanel.add(calculateButton);
         buttonsPanel.add(saveButton);
@@ -106,7 +113,7 @@ public class MainFrame extends JFrame {
         contentPane.add(chartPanel);
         rightPanel.add(scrollPane);
         rightPanel.add(buttonsPanel);
-        rightPanel.add(optionsPanel);
+        rightPanel.add(new OptionsPanel(calculator));
         contentPane.add(rightPanel);
     }
 

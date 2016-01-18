@@ -1,6 +1,7 @@
 package growthCalculator.logic;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
@@ -23,8 +24,8 @@ public class ReadDataFromFile implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Pliki tekstowe", "txt");
-        chooser.setFileFilter(filter);
+
+        chooser.setFileFilter(new FileNameExtensionFilter("Pliki tekstowe", "txt"));
         chooser.setDialogTitle("Otwórz plik");
         chooser.setApproveButtonText("Otwórz");
         int returnVal = chooser.showOpenDialog(null);

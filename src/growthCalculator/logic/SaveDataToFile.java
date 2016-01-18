@@ -1,6 +1,7 @@
 package growthCalculator.logic;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +30,8 @@ public class SaveDataToFile implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!dataToSave.isEmpty()) {
             JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Pliki tekstowe", "txt");
-            chooser.setFileFilter(filter);
+
+            chooser.setFileFilter(new FileNameExtensionFilter("Pliki tekstowe", "txt"));
             chooser.setDialogTitle("Zapisz do pliku");
             chooser.setApproveButtonText("Zapisz");
             int returnVal = chooser.showSaveDialog(null);
@@ -38,8 +39,6 @@ public class SaveDataToFile implements ActionListener {
                 case APPROVE_OPTION:
                     saveToFile(chooser.getSelectedFile());
                     break;
-                case CANCEL_OPTION:
-                    return;
                 case ERROR_OPTION:
                     JOptionPane.showMessageDialog(null, "Nastąpił nieoczekiwany błąd zapisu", "Błąd",
                             ERROR_MESSAGE);

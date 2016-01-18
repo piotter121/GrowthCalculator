@@ -13,9 +13,15 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.util.ShapeUtilities;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Shape;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * GrowthCalculator
@@ -32,13 +38,11 @@ public class GrowthChartPanel extends JPanel implements Observer {
         XYSeriesCollection seriesCollection = new XYSeriesCollection();
         for (Integer percentile: chart.getPercentilesList()) {
             XYSeries series = new XYSeries(percentile + " centyl");
-            for (int age = 1; age <= 18; age++)
-                series.add(age, chart.getValueAt(age, percentile));
+            for (int age = 1; age <= 18; age++) series.add(age, chart.getValueAt(age, percentile));
             seriesCollection.addSeries(series);
         }
 
-        if (data != null && !data.isEmpty())
-            seriesCollection.addSeries(createSeries(data));
+        if (data != null && !data.isEmpty()) seriesCollection.addSeries(createSeries(data));
 
         JFreeChart freeChart = ChartFactory.createXYLineChart("Wykres", "wiek", "wartość", seriesCollection,
                 PlotOrientation.VERTICAL, true, true, false);
@@ -62,10 +66,8 @@ public class GrowthChartPanel extends JPanel implements Observer {
         }
         plot.setRenderer(renderer);
 
-        ChartPanel chartPanel = new ChartPanel(freeChart);
-
         removeAll();
-        add(chartPanel, BorderLayout.CENTER);
+        add(new ChartPanel(freeChart), BorderLayout.CENTER);
         validate();
     }
 
@@ -84,8 +86,7 @@ public class GrowthChartPanel extends JPanel implements Observer {
 
     private XYSeries createSeries(SortedMap<Integer, Double> data) {
         XYSeries series = new XYSeries("dane dziecka");
-        for (Map.Entry<Integer, Double> entry: data.entrySet())
-            series.add(entry.getKey(), entry.getValue());
+        for (Map.Entry<Integer, Double> entry: data.entrySet()) series.add(entry.getKey(), entry.getValue());
         return series;
     }
 }
