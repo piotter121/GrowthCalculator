@@ -103,7 +103,8 @@ public class GrowthCalculator extends Observable{
                 throw new CalculationException("Rozwój dziecka nie mieści się w granicach między 3 a 97 centylem!");
 
             /** Obliczenie 5 wartości na przód */
-            for (int i = userData.lastKey() + 1; i < (userData.lastKey() + 6) && i < 19; i++)
+            int startPoint = userData.lastKey() + 1;
+            for (int i = startPoint; i < (startPoint + 5) && i < 19; i++)
                 setResult(i, findValue(i, average));
         }
     }
